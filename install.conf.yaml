@@ -11,6 +11,7 @@
     ~/.p10k.zsh: p10k.zsh
     ~/.profile: profile
     ~/.zshrc: zshrc
+    ~/.vimrc: vimrc
 
 - create:
     - ~/downloads
