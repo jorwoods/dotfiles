@@ -12,6 +12,7 @@
     ~/.profile: profile
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
+    ~/.gitconfig: gitconfig
 
 - create:
     - ~/downloads

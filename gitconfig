@@ -1,0 +1,11 @@
+[aliases]
+a = add
+f = fetch --all
+c = commit
+co = checkout
+cp = cherry-pick
+stat = status
+pfwl = push --force-with-lease
+
+[include]
+    path = ~/.gitconfig_local
