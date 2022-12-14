@@ -1,11 +1,14 @@
-[aliases]
-a = add
-f = fetch --all
-c = commit
-co = checkout
-cp = cherry-pick
-stat = status
-pfwl = push --force-with-lease
-
 [include]
     path = ~/.gitconfig_local
+[core]
+	editor = code --wait
+[alias]
+	a = add
+	b = branch
+	c = commit
+	f = fetch --all --prune
+	co = checkout
+	cp = cherry-pick
+	stat = status
+	amend = !git commit --amend --no-edit
+	pfwl = !git push --force-with-lease
