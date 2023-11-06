@@ -77,7 +77,17 @@ ZSH_THEME="powerline10k/powerline10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+
+which oh-my-posh > /dev/null
+if [[ $? -eq 0 ]]; then
+  eval "$(oh-my-posh init zsh --config 'https://gist.githubusercontent.com/jorwoods/b9580bcdc3526a659c98de3c53158530/raw/8dfc2cab5b58c7c4fe0df61dd47ad3d314553712/.mytheme.omp.json')"
+elif [[ -f "$HOME/.oh-my-zsh.sh" ]]; then
+  source $ZSH/oh-my-zsh.sh
+  source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
+
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # User configuration
 
@@ -104,10 +114,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -132,6 +138,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # tabtab source for packages
 # uninstall by removing these lines
 [ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
-
+if [[ -f "$HOME/.aliases" ]]; then 
+  source "$HOME/.aliases"
+fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
