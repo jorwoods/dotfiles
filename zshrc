@@ -133,7 +133,25 @@ unset __conda_setup
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+# Add path and aliases for neovim if its present
 
+if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
+    if [[ ! -d "$HOME/programs" ]]; then
+        mkdir "$HOME/programs"
+    fi
+
+    pushd "$HOME/programs"
+
+    url="https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
+    wget url
+    tar xzf nvim-linux64.tar.gz
+    rm nvim-linux64.tar.gz
+
+    popd
+    
+fi
+export PATH="$HOME/programs/nvim-linux64/bin:$PATH"
+alias vim="nvim"
 
 # tabtab source for packages
 # uninstall by removing these lines
