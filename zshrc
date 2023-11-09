@@ -133,6 +133,11 @@ unset __conda_setup
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+############################################
+############################################
+######### NEOVIM CONFIGURATION #############
+############################################
+############################################
 # Add path and aliases for neovim if its present
 
 if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
@@ -152,6 +157,11 @@ if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
 fi
 export PATH="$HOME/programs/nvim-linux64/bin:$PATH"
 alias vim="nvim"
+
+if [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]]; then
+	git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
+
 
 # tabtab source for packages
 # uninstall by removing these lines
