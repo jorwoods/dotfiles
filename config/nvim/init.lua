@@ -1,4 +1,4 @@
 require('jor')
 require('jor.remap')
-print("hello")
+require('jor.set')
 
