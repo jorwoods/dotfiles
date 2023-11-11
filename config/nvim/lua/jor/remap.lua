@@ -27,3 +27,12 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 -- Delete to void register
 vim.keymap.set("x", "<leader>d", "\"_d")
 
+-- Ignore Q
+vim.keymap.set("n", "Q", "<nop>")
+
+-- Quick format
+vim.keymap.set("n", "<leader>f", function()
+    vim.lsp.buf.format()
+end)
+
+
