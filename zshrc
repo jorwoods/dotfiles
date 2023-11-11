@@ -160,7 +160,10 @@ if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
     popd
     
 fi
-export PATH="$HOME/programs/nvim-linux64/bin:$PATH"
+if [[ ! -f "$HOME/bin/nvim" ]]; then
+	ln -s "$HOME/programs/nvim-linux64/bin/nvim" "$HOME/bin/nvim"
+fi
+# export PATH="$HOME/programs/nvim-linux64/bin:$PATH"
 alias vim="nvim"
 
 if [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]]; then
