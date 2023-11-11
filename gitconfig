@@ -12,3 +12,5 @@
 	stat = status
 	amend = !git commit --amend --no-edit
 	pfwl = !git push --force-with-lease
+[rebase]
+	autoStash = true
