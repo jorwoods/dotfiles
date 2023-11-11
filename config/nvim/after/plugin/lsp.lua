@@ -23,10 +23,9 @@ require('mason-lspconfig').setup({
   ensure_installed = {
 	'lua_ls', -- lua
 	'marksman', -- markdown
+	'pyright', -- python
 	'tsserver', -- javascript
-	'ruff_lsp', -- python
 	'taplo', -- toml
-	'sqlls', -- SQL
 	'terraformls', -- terraform
 	'html', -- html
 	'cssls', -- css
