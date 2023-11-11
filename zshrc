@@ -128,12 +128,9 @@ fi
 ############################################
 
 python_folders=$(find "$HOME/programs" -type d -maxdepth 1 -name "Python-3.*" 2>/dev/null)
-echo $python_folders
 for folder in $python_folders; do
-	echo $folder
 	version=$(echo $folder | grep -oP "Python-\K3\.\d+" | sed "s/\.//g" )
 	if [ -x "$folder/python" ]; then
-		echo $version
 		ln -s "$folder/python" "$HOME/bin/python$version"
 	fi
 done
