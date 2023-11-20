@@ -1,7 +1,14 @@
+[user]
+    name = "Jordan Woods"
+    email = "13803242+jorwoods@users.noreply.github.com"
+
 [include]
-        path = ~/.gitconfig_local
+    path = ~/.gitconfig_local
+
 [core]
 	editor = code --wait
+    pager = delta
+
 [alias]
 	a = add
 	b = branch
@@ -12,5 +19,20 @@
 	stat = status
 	amend = !git commit --amend --no-edit
 	pfwl = !git push --force-with-lease
+    
 [rebase]
 	autoStash = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true # use n and N to move between diff sections
+    light = false   # set to true if you're in a terminal w/ a light background color
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+

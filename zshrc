@@ -1,7 +1,7 @@
-if [[ ! -d "$HOME/bin" ]]; then
-	mkdir "$HOME/bin"
+if [[ ! -d "$HOME/.local/bin" ]]; then
+	mkdir "$HOME/.local/bin"
 fi
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -11,7 +11,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -129,11 +129,14 @@ fi
 
 python_folders=$(find "$HOME/programs" -type d -maxdepth 1 -name "Python-3.*" 2>/dev/null)
 for folder in $python_folders; do
-	version=$(echo $folder | grep -oP "Python-\K3\.\d+" | sed "s/\.//g" )
+	version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
 	if [ -x "$folder/python" ]; then
-		ln -s "$folder/python" "$HOME/bin/python$version"
+    if [ ! -f "$HOME/.local/bin/python$version" ]; then
+      ln -s "$folder/python" "$HOME/.local/bin/python$version"
+    fi
 	fi
 done
+# Python will put binaries for pip and other tools in the ~/.local/bin folder 
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -153,15 +156,15 @@ if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
     pushd "$HOME/programs"
 
     url="https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
-    wget url
+    wget $url
     tar xzf nvim-linux64.tar.gz
     rm nvim-linux64.tar.gz
 
     popd
     
 fi
-if [[ ! -f "$HOME/bin/nvim" ]]; then
-	ln -s "$HOME/programs/nvim-linux64/bin/nvim" "$HOME/bin/nvim"
+if [[ ! -f "$HOME/.local/bin/nvim" ]]; then
+	ln -s "$HOME/programs/nvim-linux64/bin/nvim" "$HOME/.local/bin/nvim"
 fi
 # export PATH="$HOME/programs/nvim-linux64/bin:$PATH"
 alias vim="nvim"
