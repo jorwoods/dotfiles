@@ -1,5 +1,7 @@
 # Make shorthands for common flags
+alias ls="ls --color=auto"
 alias ll="ls -lh"
+alias la="ls -a"
 
 # Save a lot of typing for common commands
 alias g="git"
