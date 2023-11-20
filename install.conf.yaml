@@ -15,10 +15,14 @@
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
     ~/.gitconfig: gitconfig
+    ~/.local/bin/make_venv: scripts/make_venv.py
 
 - create:
     - ~/downloads
     - ~/.vim/undo-history
+    - ~/bin
+    - ~/.local/bin
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - [chmod +x ~/.local/bin/make_venv, Making make_venv executable]
