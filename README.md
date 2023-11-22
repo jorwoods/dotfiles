@@ -2,6 +2,32 @@
 
 Additional setup may be required besides copying in the dotfiles.
 
+## Configuring zsh
+
+First, install zsh.
+
+```bash
+sudo apt install zsh
+```
+
+Then, check if zsh is configured as a bootable shell.
+
+```bash
+grep $(command -v zsh) -- /etc/shells
+```
+
+If zsh is not present in /etc/shells, add it.
+
+```bash
+command -v zsh | sudo tee -a /etc/shells
+```
+
+Then, set your login shell to zsh.
+
+```bash
+chsh $(whoami) -s $(command -v zsh)
+```
+
 ## Installing Python
 Install the Python dependencies as defined in
 
