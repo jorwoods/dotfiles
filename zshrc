@@ -3,6 +3,25 @@ if [[ ! -d "$HOME/.local/bin" ]]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
+function source_bash {
+    bashfile="$HOME/.bashrc"
+    if [[ ! -f $bashfile ]]; then
+        echo "No .bashrc found"
+        return 0
+    fi
+
+    # Ignore comment lines from the bashfile
+    contents=grep -vE "^\s*#" $bashfile
+
+    if [[ $contents =~ "\bzsh\b" ]]; then
+        echo "$bashrc calls zsh. Not loading .bashrc"
+        return 1
+    fi
+
+    source $bashfile
+
+}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
