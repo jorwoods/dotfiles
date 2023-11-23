@@ -116,33 +116,8 @@ fi
 
 # SSH Agent
 
-SHORT_HOST="${HOSTNAME/.*/}"
-ssh_env_cache="$HOME/.ssh/environment-$SHORT_HOST"
-
-# zsh compatible bash ssh-agent start script
-function _start_agent() {
-    if [[ -f "$ssh_env_cache" ]]; then
-        . "$ssh_env_cache" > /dev/null
-    fi
-
-    if [[ -S "$SSH_AUTH_SOCK" ]]; then
-      return 0
-    fi
-
-    echo "Starting ssh-agent ..."
-    ssh-agent -s | sed '/^echo/d' > "$ssh_env_cache"
-    chmod 600 "$ssh_env_cache"
-    . "$ssh_env_cache" > /dev/null
-}
-_start_agent
-
-unset ssh_env_cache
-unset -f _start_agent
-
-if [[ -f "$HOME/.ssh/id_rsa" ]]; then
-    ssh-add "$HOME/.ssh/id_rsa"
-fi
-
+eval `keychain --eval --agents ssh id_rsa`
+ 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

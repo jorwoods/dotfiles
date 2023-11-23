@@ -4,10 +4,10 @@ Additional setup may be required besides copying in the dotfiles.
 
 ## Configuring zsh
 
-First, install zsh.
+First, install zsh, keychain, and fzf.
 
 ```bash
-sudo apt install zsh
+sudo apt install zsh keychain fzf
 ```
 
 Then, check if zsh is configured as a bootable shell.
