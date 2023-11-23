@@ -47,3 +47,20 @@ Once you have downloaded the python source, cd into the directory and build it.
 make -s -j$(nproc)
 make altinstall
 ```
+
+## Installing nodejs
+
+Instructions lifted from [NodeJS on WSL](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl)
+
+First, install nvm, the "Node Version Manager"
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+```
+
+Then, install the long term support version of NodeJS.
+
+```bash
+nvm install --lts
+```
+
