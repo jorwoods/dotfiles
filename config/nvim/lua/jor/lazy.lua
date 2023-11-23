@@ -24,6 +24,7 @@ require("lazy").setup({
 
   -- Editing improvements
   { 'mbbill/undotree' },
+  { 'github/copilot.vim'},
 
   -- Highlighting
   {
