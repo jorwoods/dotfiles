@@ -56,9 +56,16 @@ require("lazy").setup({
     },
   },
 
-  -- NVIM keybings helper
+  -- NVIM niceties
   { 'folke/which-key.nvim', opts = {} },
+  { 'nvim-lualine/lualine.nvim', 
+    dependencies = {
+        'nvim-tree/nvim-web-devicons'
+    }
+  },
+
 
   -- THEMES
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+
 })
