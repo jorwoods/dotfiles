@@ -26,6 +26,7 @@ require("lazy").setup({
   { 'mbbill/undotree' },
   { 'github/copilot.vim'},
 
+
   -- Highlighting
   {
     -- Highlight, edit, and navigate code
@@ -54,6 +55,9 @@ require("lazy").setup({
       'folke/neodev.nvim',
     },
   },
+
+  -- NVIM keybings helper
+  { 'folke/which-key.nvim', opts = {} },
 
   -- THEMES
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
