@@ -18,6 +18,7 @@
     ~/.local/bin/make_venv: scripts/make_venv.py
     ~/.local/bin/install_python: scripts/install_python.sh
     ~/.local/bin/a: scripts/activate.sh
+    ~/.local/bin/cht: scripts/cht.sh
 
 - create:
     - ~/downloads
@@ -30,3 +31,4 @@
   - [chmod +x ~/.local/bin/make_venv, Making make_venv executable]
   - [chmod +x ~/.local/bin/install_python, Making install_python executable]
   - [chmod +x ~/.local/bin/a, Making activate executable]
+  - [chmod +x ~/.local/bin/cht, Making cheatsheet executable]
