@@ -68,6 +68,17 @@ for folder in $python_folders; do
 done
 # Python will put binaries for pip and other tools in the ~/.local/bin folder 
 
+if [[ ! -d "$HOME/.virtualenvs" ]]; then
+    mkdir "$HOME/.virtualenvs"
+fi
+
+if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
+    pushd "$HOME/.virtualenvs/debugpy"
+    python3 -m venv debugpy
+    ./debugpy/bin/python -m pip install debugpy
+    popd
+fi
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
