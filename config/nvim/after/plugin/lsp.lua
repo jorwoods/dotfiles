@@ -43,25 +43,59 @@ local on_attach = function(_, bufnr)
     -- See `:help K` for more info
     nmap('K', vim.lsp.buf.hover, 'Show [D]ocumentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
 end
 
 -- lsp.setup()
-require('mason-lspconfig').setup({
-  -- Replace the language servers listed here
-  -- with the ones you want to install
-  ensure_installed = {
-	'lua_ls', -- lua
-	'marksman', -- markdown
-	'pyright', -- python
-	'tsserver', -- javascript
-	'taplo', -- toml
-	'terraformls', -- terraform
-	'html', -- html
-	'cssls', -- css
-	'bashls', -- bash
-  },
---   handlers = {
---     lsp.default_setup,
---   }
-})
+local mason_lspconfig = require('mason-lspconfig')
+
+
+local servers = {
+    marksman = {},
+    tsserver = {},
+    taplo = {},
+    terraformls = {},
+    html = {},
+    cssls = {},
+    bashls = {},
+    lua_ls = {
+        Lua = {
+            workspace = { checkThirdPart = false },
+            telemetry = { enable = false },
+        },
+    },
+    pyright = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "basic",
+            },
+        },
+    },
+}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+mason_lspconfig.setup {
+    ensure_installed = vim.tbl_keys(servers),
+}
+
+mason_lspconfig.setup_handlers {
+    function(server_name)
+        require('lspconfig')[server_name].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = servers[server_name] or {},
+            filetypes = (servers[server_name] or {}).filetypes,
+        }
+    end
+}
+
+
+
