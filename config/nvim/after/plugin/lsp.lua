@@ -5,7 +5,7 @@ local on_attach = function(_, bufnr)
             desc = 'LSP: ' .. desc
         end
 
-        vim.keymap.set('n', keys, func, {buffer=bufnr, desc=desc})
+        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -19,8 +19,8 @@ local on_attach = function(_, bufnr)
     nmap('<leader>ws', telescope.lsp_workspace_symbols, '[W]orkspace [S]ymbols')
     nmap('<leader>gn', vim.diagnostic.goto_next, '[G]oto [N]ext Diagnostic')
     nmap('<leader>gp', vim.diagnostic.goto_prev, '[G]oto [P]revious Diagnostic')
---  Need to find a different mapping for this due to conflict with delete keymap
---    nmap('<leader>dl', telescope.lsp_document_diagnostics, '[D]ocument [L]inting')
+    --  Need to find a different mapping for this due to conflict with delete keymap
+    --    nmap('<leader>dl', telescope.lsp_document_diagnostics, '[D]ocument [L]inting')
 
 
     -- See `:help K` for more info
@@ -130,8 +130,6 @@ cmp.setup {
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
---        { name = 'buffer' },
+        --        { name = 'buffer' },
     },
 }
-
-
