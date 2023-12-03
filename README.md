@@ -28,6 +28,12 @@ Then, set your login shell to zsh.
 chsh $(whoami) -s $(command -v zsh)
 ```
 
+Then, install [Oh My Posh](https://ohmyposh.dev/docs/installation/linux).
+
+```bash
+curl -s https://ohmyposh.dev/install.sh | bash -s
+```
+
 ## Installing Python
 Install the Python dependencies as defined in
 
