@@ -27,6 +27,7 @@ local on_attach = function(_, bufnr)
     nmap('K', vim.lsp.buf.hover, 'Show [D]ocumentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     -- Create a command `:Format` local to the LSP buffer
+    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[f]ormat file')
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
@@ -60,6 +61,7 @@ local servers = {
             },
         },
     },
+    ruff_lsp = {},
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
