@@ -73,7 +73,7 @@ if [[ ! -d "$HOME/.virtualenvs" ]]; then
 fi
 
 if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
-    pushd "$HOME/.virtualenvs/debugpy"
+    pushd "$HOME/.virtualenvs"
     python3 -m venv debugpy
     ./debugpy/bin/python -m pip install debugpy
     popd
