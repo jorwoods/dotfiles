@@ -119,3 +119,20 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+################################################################################
+################################################################################
+################################## fzf config ##################################
+################################################################################
+################################################################################
+
+ # Use the CLI fd to respect ignore files (like '.gitignore'),
+# display hidden files, and exclude the '.git' directory.
+export FZF_DEFAULT_COMMAND='fd . --hidden --exclude ".git" --exclude .venv'
+
+# Use the CLI ripgrep to respect ignore files (like '.gitignore'),
+# display hidden files, and exclude the '.git' directory.
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" --glob "!.venv"'
+
