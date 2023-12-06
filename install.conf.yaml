@@ -14,10 +14,12 @@
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
     ~/.gitconfig: gitconfig
+    ~/.mytheme.omp.json: mytheme.omp.json
     ~/.local/bin/make_venv: scripts/make_venv.py
     ~/.local/bin/install_python: scripts/install_python.sh
     ~/.local/bin/a: scripts/activate.sh
     ~/.local/bin/cht: scripts/cht.sh
+    config/tmux/tmux.conf: vendor/tmux/.tmux.conf
 
 - create:
     - ~/downloads

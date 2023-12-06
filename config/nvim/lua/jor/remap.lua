@@ -18,16 +18,19 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Move screen down by half page'
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Move screen up by half page' })
 
 -- Replace with word copied, but send cut text into the void register
-vim.keymap.set("x", "<leader>p", "\"_dP", { desc = 'Replace with copied, sending cut text to void' })
+vim.keymap.set("x", "<leader>pr", "\"_dP", { desc = 'Replace with copied, sending cut text to void' })
 
 -- Gives a different hotkey to copy to the system clipboard
 -- Gives a different hotkey to copy to the system clipboard
-vim.keymap.set("n", "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
-vim.keymap.set("v", "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
+vim.keymap.set({"n", "v"}, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
 vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
 
 -- Delete to void register
-vim.keymap.set("x", "<leader>d", "\"_d", { desc = 'Delete and send to void' })
+vim.keymap.set("n", "<leader>dd", "\"_d", { desc = 'Delete and send to void' })
+
+-- Paste from system clipboard
+vim.keymap.set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard' })
+
 
 -- Ignore Q
 vim.keymap.set("n", "Q", "<nop>")
