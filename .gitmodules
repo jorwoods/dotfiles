@@ -8,3 +8,6 @@
 [submodule "oh_my_tmux"]
 	path = vendor/tmux
 	url = https://www.github.com/gpakosz/.tmux
+[submodule "tpm"]
+	path = tmux/plugins/tpm
+	url = https://www.github.com/tmux-plugins/tpm

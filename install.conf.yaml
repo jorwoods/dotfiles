@@ -13,6 +13,7 @@
     ~/.profile: profile
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
+    ~/.tmux: tmux
     ~/.gitconfig: gitconfig
     ~/.mytheme.omp.json: mytheme.omp.json
     ~/.local/bin/make_venv: scripts/make_venv.py
