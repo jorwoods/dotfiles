@@ -92,6 +92,11 @@ require("lazy").setup({
         }
     },
 
+  -- ORG MODE
+  {
+      'nvim-orgmode/orgmode',
+      dependencies = {'nvim-treesitter/nvim-treesitter', lazy = true },
+  },
 
     -- THEMES
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
