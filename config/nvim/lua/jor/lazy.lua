@@ -22,10 +22,18 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     { 'ThePrimeagen/harpoon', },
+    { 'SmiteshP/nvim-navbuddy',
+        dependencies = {
+            'SmiteshP/nvim-navic',
+            'MunifTanjim/nui.nvim',
+        },
+},
+
 
     -- Editing improvements
     { 'mbbill/undotree' },
     { 'github/copilot.vim' },
+    { 'numToStr/Comment.nvim' }, -- Quick comment keybdings
 
 
     -- Highlighting
