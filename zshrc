@@ -27,7 +27,8 @@ plugins=(git)
 
 which oh-my-posh > /dev/null
 if [[ $? -eq 0 ]]; then
-  eval "$(oh-my-posh init zsh --config 'https://gist.githubusercontent.com/jorwoods/b9580bcdc3526a659c98de3c53158530/raw/8dfc2cab5b58c7c4fe0df61dd47ad3d314553712/.mytheme.omp.json')"
+  eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
+
 fi
 
 # SSH Agent
