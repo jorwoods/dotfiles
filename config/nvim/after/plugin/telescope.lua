@@ -5,3 +5,5 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[P]roject git [f]iles'
 vim.keymap.set('n', '<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end, { desc = '[P]roject [s]earch' })
+vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, { desc = 'Buffer [f]uzzy [s]earch' })
+
