@@ -21,3 +21,5 @@ alias df="df -h"           # -h prints human readable format
 alias la="ls -A"
 alias lla="la -l"
 
+alias py="python3"
+
