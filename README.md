@@ -70,3 +70,12 @@ Then, install the long term support version of NodeJS.
 nvm install --lts
 ```
 
+## Configuring tmux
+
+tmux is installed by default on most linux based operating systems. After
+cloning this repo, tmux.conf will allow some customization of the multiplexer.
+
+To install plugins, once in a tmux session, hit the prefix, then I. The default
+prefix is C-b. This tmux.conf changes the prefix C-Space.
+
+
