@@ -22,6 +22,7 @@
     ~/.local/bin/a: scripts/activate.sh
     ~/.local/bin/cht: scripts/cht.sh
     ~/.local/bin/gb: scripts/gb.sh
+    ~/.tmuxifier: config/tmux/plugins/tmuxifier
 
 - create:
     - ~/downloads
