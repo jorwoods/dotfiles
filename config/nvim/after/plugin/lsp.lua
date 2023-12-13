@@ -98,7 +98,8 @@ cmp.setup {
         end,
     },
     mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        -- Use n/m for navigating suggestions to give a similar motion to j/k
+        ['<C-m>'] = cmp.mapping.select_prev_item(),
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
