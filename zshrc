@@ -94,8 +94,7 @@ function make_venv {
     fi
     version=$($py --version)
     echo "Creating virtual environment for $version"
-    folder=$(basename "$PWD")
-    $py -m venv --prompt "$folder" .venv
+    $py -m venv --prompt "." .venv
     touch .gitignore > /dev/null 2>&1
     if grep -L .venv .gitignore; then
         echo "Adding .venv/ to .gitignore"
