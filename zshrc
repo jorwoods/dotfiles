@@ -82,6 +82,34 @@ if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
     popd
 fi
 
+function select_python {
+    for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do find $dir -name 'python*' -executable -maxdepth 1; done 2>/dev/null | grep -v config | sort | uniq | fzf --prompt='Select python version:'
+    }
+
+function make_venv {
+    py=$(select_python)
+    if [[ -z $py ]]; then
+        echo "No python version selected"
+        return 1
+    fi
+    version=$($py --version)
+    echo "Creating virtual environment for $version"
+    folder=$(basename "$PWD")
+    $py -m venv --prompt "$folder" .venv
+    touch .gitignore > /dev/null 2>&1
+    if grep -L .venv .gitignore; then
+        echo "Adding .venv/ to .gitignore"
+        echo ".venv/" >> .gitignore
+    fi
+    echo "Upgrading .venv's pip"
+    "$PWD"/.venv/bin/python -m pip install --upgrade pip > /dev/null
+    echo ".venv/ created. Activate with 'source .venv/bin/activate'"
+}
+
+function activate {
+    source $(pwd)/.venv/bin/activate
+}
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
