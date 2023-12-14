@@ -87,6 +87,7 @@ function select_python {
     }
 
 function make_venv {
+    venv_name=${1:-.venv}
     py=$(select_python)
     if [[ -z $py ]]; then
         echo "No python version selected"
@@ -94,19 +95,20 @@ function make_venv {
     fi
     version=$($py --version)
     echo "Creating virtual environment for $version"
-    $py -m venv --prompt "." .venv
+    $py -m venv --prompt "." $venv_name
     touch .gitignore > /dev/null 2>&1
-    if grep -L .venv .gitignore; then
-        echo "Adding .venv/ to .gitignore"
-        echo ".venv/" >> .gitignore
+    if grep -L $venv_name .gitignore; then
+        echo "Adding $venv_name/ to .gitignore"
+        echo "$venv_name/" >> .gitignore
     fi
-    echo "Upgrading .venv's pip"
-    "$PWD"/.venv/bin/python -m pip install --upgrade pip > /dev/null
-    echo ".venv/ created. Activate with 'source .venv/bin/activate'"
+    echo "Upgrading $venv_name's pip"
+    $(pwd)/$venv_name/bin/python -m pip install --upgrade pip > /dev/null
+    echo "$venv_name/ created. Activate with 'source $venv_name/bin/activate'"
 }
 
 function activate {
-    source $(pwd)/.venv/bin/activate
+    venv_name=${1:-.venv}
+    source $(pwd)/$venv_name/bin/activate
 }
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
