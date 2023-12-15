@@ -86,7 +86,7 @@ function select_python {
     for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do find $dir -name 'python*' -executable -maxdepth 1; done 2>/dev/null | grep -v config | sort | uniq | fzf --prompt='Select python version:'
     }
 
-function make_venv {
+function venv {
     venv_name=${1:-.venv}
     py=$(select_python)
     if [[ -z $py ]]; then
