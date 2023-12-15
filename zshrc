@@ -83,8 +83,18 @@ if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
 fi
 
 function select_python {
-    for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do find $dir -name 'python*' -executable -maxdepth 1; done 2>/dev/null | grep -v config | sort | uniq | fzf --prompt='Select python version:'
-    }
+    # Iterate over each directory in the PATH variable
+    for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do
+        # Find all executable files starting with 'python' in the current directory
+        find $dir -name 'python*' -executable -maxdepth 1
+    done 2>/dev/null | 
+    # Exclude 'python*-config' from the output
+    grep -v config | 
+    # Sort the output and remove duplicate entries
+    sort -u | 
+    # Use fzf for interactive selection
+    fzf --prompt='Select python version:'
+}
 
 function venv {
     venv_name=${1:-.venv}
