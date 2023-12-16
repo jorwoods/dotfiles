@@ -82,6 +82,46 @@ if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
     popd
 fi
 
+function select_python {
+    # Iterate over each directory in the PATH variable
+    for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do
+        # Find all executable files starting with 'python' in the current directory
+        find $dir -name 'python*' -executable -maxdepth 1
+    done 2>/dev/null | 
+    # Exclude 'python*-config' from the output
+    grep -v config | 
+    # Sort the output and remove duplicate entries
+    sort -u | 
+    # Use fzf for interactive selection
+    fzf --prompt='Select python version:'
+}
+
+function venv {
+    venv_name=${1:-.venv}
+    py=$(select_python)
+    if [[ -z $py ]]; then
+        echo "No python version selected"
+        return 1
+    fi
+    version=$($py --version)
+    folder=$(basename $PWD)
+    echo "Creating virtual environment for $version in $venv_name"
+    $py -m venv --prompt "$folder" $venv_name
+    touch .gitignore > /dev/null 2>&1
+    if grep -L $venv_name .gitignore; then
+        echo "Adding $venv_name/ to .gitignore"
+        echo "$venv_name/" >> .gitignore
+    fi
+    echo "Upgrading $venv_name's pip"
+    $(pwd)/$venv_name/bin/python -m pip install --upgrade pip > /dev/null
+    echo "$venv_name/ created. Activate with 'source $venv_name/bin/activate'"
+}
+
+function activate {
+    venv_name=${1:-.venv}
+    source $(pwd)/$venv_name/bin/activate
+}
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
