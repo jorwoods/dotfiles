@@ -54,6 +54,26 @@ eval `keychain --eval --agents ssh id_rsa`
 # export ARCHFLAGS="-arch x86_64"
 
 
+function clone {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: clone <repo>"
+        return 1
+    fi
+    if [[ ! -d "$HOME/source" ]]; then
+        mkdir "$HOME/source"
+    fi
+
+    pushd "$HOME/source"
+
+    dir=$(basename $1 .git)
+    git clone gh:$#
+    if [[ $? -eq 0 ]]; then
+        echo "Cloned $1 to $HOME/source/$dir"
+    fi
+    popd
+}
+
+
 ############################################
 ############################################
 ######### Python CONFIGURATION #############
