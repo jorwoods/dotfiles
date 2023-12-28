@@ -105,6 +105,10 @@ function venv {
     fi
     version=$($py --version)
     folder=$(basename $PWD)
+    if [[ -d $venv_name ]]; then
+        echo "$venv_name already exists"
+        return 1
+    fi
     echo "Creating virtual environment for $version in $venv_name"
     $py -m venv --prompt "$folder" $venv_name
     touch .gitignore > /dev/null 2>&1
@@ -119,6 +123,10 @@ function venv {
 
 function activate {
     venv_name=${1:-.venv}
+    if [[ ! -d $venv_name ]]; then
+        echo "$venv_name does not exist"
+        return 1
+    fi
     source $(pwd)/$venv_name/bin/activate
 }
 
