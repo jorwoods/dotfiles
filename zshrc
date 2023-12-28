@@ -137,7 +137,7 @@ venv() {
         echo "$venv_name/" >> .gitignore
     fi
     echo "Upgrading $venv_name's pip"
-    $(pwd)/$venv_name/bin/python -m pip install --upgrade pip > /dev/null
+    "$PWD/$venv_name/bin/python" -m pip install --upgrade pip > /dev/null
     echo "$venv_name/ created. Activate with 'source $venv_name/bin/activate'"
 }
 
