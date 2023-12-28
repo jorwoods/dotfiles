@@ -4,7 +4,7 @@ if [[ ! -d "$HOME/.local/bin" ]]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-function source_bash {
+source_bash() {
     bashfile="$HOME/.bashrc"
     if [[ ! -f $bashfile ]]; then
         echo "No .bashrc found"
@@ -54,7 +54,7 @@ eval `keychain --eval --agents ssh id_rsa`
 # export ARCHFLAGS="-arch x86_64"
 
 
-function clone {
+clone() {
     if [[ $# -eq 0 ]]; then
         echo "Usage: clone <repo>"
         return 1
@@ -102,7 +102,7 @@ if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
     popd
 fi
 
-function select_python {
+select_python() {
     # Iterate over each directory in the PATH variable
     for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do
         # Find all executable files starting with 'python' in the current directory
@@ -116,7 +116,7 @@ function select_python {
     fzf --prompt='Select python version:'
 }
 
-function venv {
+venv() {
     venv_name=${1:-.venv}
     py=$(select_python)
     if [[ -z $py ]]; then
@@ -141,7 +141,7 @@ function venv {
     echo "$venv_name/ created. Activate with 'source $venv_name/bin/activate'"
 }
 
-function activate {
+activate() {
     venv_name=${1:-.venv}
     if [[ ! -d $venv_name ]]; then
         echo "$venv_name does not exist"
