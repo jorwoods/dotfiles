@@ -102,7 +102,7 @@ clone() {
     pushd "$HOME/source"
 
     dir=$(basename $1 .git)
-    git clone gh:$#
+    git clone gh:"$1" "$dir"
     if [[ $? -eq 0 ]]; then
         echo "Cloned $1 to $HOME/source/$dir"
     fi
