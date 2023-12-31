@@ -4,7 +4,7 @@ if [[ ! -d "$HOME/.local/bin" ]]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-function source_bash {
+source_bash() {
     bashfile="$HOME/.bashrc"
     if [[ ! -f $bashfile ]]; then
         echo "No .bashrc found"
@@ -53,6 +53,62 @@ eval `keychain --eval --agents ssh id_rsa`
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+get_remote() {
+    remote=$(
+        git status --short --branch | 
+        grep -oP "(?<=\.{3}).*(?= \[)" |
+        sed 's/\/.*//'
+    )
+    if [[ ! -z $remote ]]; then
+        echo "$remote"
+        return 0
+    fi
+    remotes=$(git remote)
+    remote_count=$(echo "$remotes" | wc -l)
+    if [[ $remote_count -gt 1 ]]; then
+        remote=$(echo "$remotes" | fzf)
+        echo "$remote"
+        return 0
+    elif [[ $remote_count -eq 1 ]]; then
+        echo "$remotes"
+        return 0
+    fi
+}
+
+push() {
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    remote=$(get_remote)
+    if [[ -z $remote ]]; then
+        echo "No remote found"
+        return 1
+    fi
+    lines=$(git ls-remote --heads $remote $branch)
+    if [[ -z $lines ]]; then
+        git push --set-upstream $remote $branch
+        return 0
+    fi
+    git push
+}
+
+clone() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: clone <repo>"
+        return 1
+    fi
+    if [[ ! -d "$HOME/source" ]]; then
+        mkdir "$HOME/source"
+    fi
+
+    pushd "$HOME/source"
+
+    dir=$(basename $1 .git)
+    git clone gh:$#
+    if [[ $? -eq 0 ]]; then
+        echo "Cloned $1 to $HOME/source/$dir"
+    fi
+    popd
+}
+
 
 ############################################
 ############################################
@@ -82,7 +138,7 @@ if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
     popd
 fi
 
-function select_python {
+select_python() {
     # Iterate over each directory in the PATH variable
     for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do
         # Find all executable files starting with 'python' in the current directory
@@ -96,7 +152,7 @@ function select_python {
     fzf --prompt='Select python version:'
 }
 
-function venv {
+venv() {
     venv_name=${1:-.venv}
     py=$(select_python)
     if [[ -z $py ]]; then
@@ -105,6 +161,10 @@ function venv {
     fi
     version=$($py --version)
     folder=$(basename $PWD)
+    if [[ -d $venv_name ]]; then
+        echo "$venv_name already exists"
+        return 1
+    fi
     echo "Creating virtual environment for $version in $venv_name"
     $py -m venv --prompt "$folder" $venv_name
     touch .gitignore > /dev/null 2>&1
@@ -113,12 +173,16 @@ function venv {
         echo "$venv_name/" >> .gitignore
     fi
     echo "Upgrading $venv_name's pip"
-    $(pwd)/$venv_name/bin/python -m pip install --upgrade pip > /dev/null
+    "$PWD/$venv_name/bin/python" -m pip install --upgrade pip > /dev/null
     echo "$venv_name/ created. Activate with 'source $venv_name/bin/activate'"
 }
 
-function activate {
+activate() {
     venv_name=${1:-.venv}
+    if [[ ! -d $venv_name ]]; then
+        echo "$venv_name does not exist"
+        return 1
+    fi
     source $(pwd)/$venv_name/bin/activate
 }
 
