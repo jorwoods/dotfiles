@@ -1,3 +1,15 @@
+# ZSH History
+export HISTFILE=~/.zsh_history
+export HISTSIZE=1000000000
+export HISTFILESIZE=1000000000
+setopt INC_APPEND_HISTORY
+setopt HISTORY_IGNORE_ALL_DUPS
+setopt HISTORY_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+
+
+
 export BROWSER=sensible-browser
 if [[ ! -d "$HOME/.local/bin" ]]; then
 	mkdir "$HOME/.local/bin"
