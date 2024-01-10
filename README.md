@@ -2,12 +2,23 @@
 
 Additional setup may be required besides copying in the dotfiles.
 
+## SSL Certificates
+When first setting up WSL on enterprise machines, they may be configured with
+self signed certificates to allow deep packet inspection. If this is the case,
+there is a python script in the scripts folder that you first have to run on
+windows, and then within WSL. This will add all of the certificate bundles from
+windows into WSL.
+
+```sh
+python3 win_certs.py
+```
+
 ## Configuring zsh
 
-First, install zsh, keychain, and fzf.
+First, install helpful CLI tools
 
 ```bash
-sudo apt install zsh keychain fzf
+sudo apt install zsh keychain fzf rg fd-find
 ```
 
 Then, check if zsh is configured as a bootable shell.
