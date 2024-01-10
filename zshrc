@@ -215,7 +215,7 @@ if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
 
     pushd "$HOME/programs"
 
-    url="https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz"
+    url="https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz"
     wget $url
     tar xzf nvim-linux64.tar.gz
     rm nvim-linux64.tar.gz
