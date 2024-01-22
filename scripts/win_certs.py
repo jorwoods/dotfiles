@@ -4,11 +4,11 @@ import shutil
 import ssl
 import subprocess
 import sys
+from typing import Dict
 
 def export_certs():
     pems = []
     cert_file = Path.home() / "windows_certs.pem"
-    context = ssl.create_default_context()
     for storename in ("CA", "ROOT"):
         for cert in ssl.enum_certificates(storename):
             pems.append(ssl.DER_cert_to_PEM_cert(cert[0]))
@@ -28,8 +28,30 @@ def get_windows_home() -> Path:
 
 def import_certs():
     cert_bundle = get_windows_home() / "windows_certs.pem"
-    shutil.copy2(str(cert_bundle), "/usr/local/share/ca-certificates/windows.crt")
+    target = "/usr/local/share/ca-certificates/windows.crt"
+    shutil.copy2(str(cert_bundle), target)
     subprocess.run(["sudo", "update-ca-certificates"])
+    wgetrc = Path.home() / ".wgetrc"
+    config = read_wgetrc(wgetrc)
+    config["ca_certificate"] = target
+    write_wgetrc(wgetrc, config)
+
+def read_wgetrc(file:Path) -> Dict[str,str]:
+    if not file.exists():
+        return {}
+    data = {}
+    with file.open("r") as f:
+        for line in f.readlines():
+            k,v = line.split("=", maxsplit=1)
+            data[k.strip()] = v.strip()
+    return data
+
+def write_wgetrc(file:Path, config: Dict[str,str]) -> None:
+    with file.open("w") as f:
+        for pair in config.items():
+            f.write(" = ".join(pair))
+            f.write("\n")
+
 
 if __name__ == "__main__":
     if sys.platform.startswith("win"):
