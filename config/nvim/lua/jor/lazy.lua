@@ -22,6 +22,7 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     { 'ThePrimeagen/harpoon', },
+    { 'ggandor/leap.nvim', },
     { 'SmiteshP/nvim-navbuddy',
         dependencies = {
             'SmiteshP/nvim-navic',
