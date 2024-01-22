@@ -81,6 +81,8 @@ Then, install the long term support version of NodeJS.
 nvm install --lts
 ```
 
+Installing node this way is crucial to have the LSPs for neovim work correctly.
+
 ## Configuring tmux
 
 tmux is installed by default on most linux based operating systems. After
