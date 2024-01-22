@@ -6,8 +6,7 @@
     path = ~/.gitconfig_local
 
 [core]
-	editor = code --wait
-    pager = delta
+	editor = nvim --wait
 
 [alias]
 	a = add
