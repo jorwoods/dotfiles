@@ -35,7 +35,3 @@ vim.keymap.set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard'
 -- Ignore Q
 vim.keymap.set("n", "Q", "<nop>")
 
--- Quick format
-vim.keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.format()
-end)
