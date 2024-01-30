@@ -45,6 +45,7 @@ local servers = {
     html = {},
     cssls = {},
     bashls = {},
+    gopls = {},
     lua_ls = {
         Lua = {
             workspace = { checkThirdPart = false },

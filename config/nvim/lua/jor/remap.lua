@@ -35,3 +35,5 @@ vim.keymap.set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard'
 -- Ignore Q
 vim.keymap.set("n", "Q", "<nop>")
 
+-- golang error handling
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<ESC>Oreturn err<ESC>",{ desc = "Insert golang error handler" })
