@@ -127,3 +127,6 @@ export NVM_DIR="$HOME/.nvm"
 
 
 complete -C /usr/local/bin/terraform terraform
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
