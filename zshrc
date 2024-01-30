@@ -255,3 +255,5 @@ export FZF_DEFAULT_COMMAND='fd . --hidden --exclude ".git" --exclude .venv'
 # display hidden files, and exclude the '.git' directory.
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" --glob "!.venv"'
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
