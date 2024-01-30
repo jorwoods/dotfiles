@@ -1,5 +1,5 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = 'Open project folder view' })
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Open project folder view' })
 
 vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
 vim.keymap.set("n", "<leader>ps", function()
@@ -22,7 +22,7 @@ vim.keymap.set("x", "<leader>pr", "\"_dP", { desc = 'Replace with copied, sendin
 
 -- Gives a different hotkey to copy to the system clipboard
 -- Gives a different hotkey to copy to the system clipboard
-vim.keymap.set({"n", "v"}, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
+vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
 vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
 
 -- Delete to void register
