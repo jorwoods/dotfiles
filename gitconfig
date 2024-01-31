@@ -6,7 +6,7 @@
     path = ~/.gitconfig_local
 
 [core]
-	editor = nvim --wait
+	editor = nvim 
 
 [alias]
 	a = add
