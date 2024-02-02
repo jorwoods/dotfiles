@@ -10,7 +10,7 @@ setopt HIST_SAVE_NO_DUPS
 
 full_path=$(realpath $0)
 dir=$(dirname $full_path)
-for file in "$dir/shell_scripts/*"; do
+for file in "$dir/shell_setup/*"; do
     if [[ -f $file ]]; then
         source $file
     fi
