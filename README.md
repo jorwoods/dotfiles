@@ -91,4 +91,13 @@ cloning this repo, tmux.conf will allow some customization of the multiplexer.
 To install plugins, once in a tmux session, hit the prefix, then I. The default
 prefix is C-b. 
 
+## wslu
 
+Starting with Ubuntu 22.04 LTS, Ubuntu on WSL is no longer bundled with wslu.
+Add it's repository, and install.
+
+```sh 
+sudo add-apt-repository ppa:wslutilities/wslu
+sudo apt update
+sudo apt install wslu
+```
