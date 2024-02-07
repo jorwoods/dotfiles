@@ -8,7 +8,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 
-full_path=$(realpath $0)
+full_path=$(realpath "$HOME/.zshrc")
 dir=$(dirname $full_path)
 for file in "$dir/shell_setup/"*; do
     if [[ -f $file ]]; then

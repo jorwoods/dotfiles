@@ -7,6 +7,8 @@ import sys
 from typing import Dict
 
 def export_certs():
+    if not sys.platform.startswith("win"):
+        raise OSError("export_certs should only run on Windows.")
     pems = []
     cert_file = Path.home() / "windows_certs.pem"
     for storename in ("CA", "ROOT"):
