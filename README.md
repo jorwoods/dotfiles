@@ -101,3 +101,20 @@ sudo add-apt-repository ppa:wslutilities/wslu
 sudo apt update
 sudo apt install wslu
 ```
+
+## zoxide, eza, and more
+
+Install rust from [rustup](https://rustup.rs/). 
+
+### zoxide
+
+```sh
+cargo install zoxide --locked
+eval "$(zoxide init --cmd cd zsh)"
+```
+
+### eza
+
+```sh
+cargo install eza
+```
