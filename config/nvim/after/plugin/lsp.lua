@@ -50,6 +50,13 @@ local servers = {
         Lua = {
             workspace = { checkThirdPart = false },
             telemetry = { enable = false },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {
+                  'vim',
+                  'require'
+                },
+              },
         },
     },
     pyright = {
