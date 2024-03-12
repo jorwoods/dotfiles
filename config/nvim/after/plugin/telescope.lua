@@ -33,4 +33,5 @@ vim.keymap.set('n', '<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end, { desc = '[P]roject [s]earch' })
 vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, { desc = 'Buffer [f]uzzy [s]earch' })
+vim.keymap.set('n', '<leader>gc', builtin.git_branches, { desc = '[G]it [C]heckout' })
 
