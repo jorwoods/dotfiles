@@ -1,4 +1,6 @@
-#! /bin/bash
+#! /usr/bin/env bash
+
+set -eu
 
 sudo apt-get install build-essential gdb lcov pkg-config \
       libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \

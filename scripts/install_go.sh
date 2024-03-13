@@ -1,4 +1,5 @@
-#! /bin/bash
+#! /usr/bin/env bash
+set -eu
 
 version=1.21.6
 
