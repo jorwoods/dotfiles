@@ -1,5 +1,9 @@
 # Applications
 
+<!--toc:start-->
+- [Applications](#applications)
+<!--toc:end-->
+
 This is a summary of useful applications I install, and where more information
 about them can be found.
 
