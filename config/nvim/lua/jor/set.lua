@@ -3,12 +3,11 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.opt.tabstop = 4
+vim.opt.tabstop = 4 -- 1 tab = 4 spaces
 vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
-vim.opt.smartindent = true
+vim.opt.shiftwidth = 4 -- shift 4 spaces when tab
+vim.opt.expandtab = true -- Use spaces instead of tab
+vim.opt.smartindent = true -- Autoindent newlines
 
 vim.opt.wrap = false
 
@@ -19,7 +18,9 @@ vim.opt.undofile = true
 
 
 vim.opt.hlsearch = true
-vim.opt.incsearch = true
+vim.opt.incsearch = true -- Show match as its being typed
+vim.opt.ignorecase = true -- Make searches case insensitive
+vim.opt.smartcase = true -- Make search case matter if any letter is capital
 
 vim.opt.termguicolors = true
 
