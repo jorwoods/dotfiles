@@ -17,15 +17,15 @@ for file in "$dir/shell_setup/"*; do
 done
 
 
-source_bash() {
-    bashfile="$HOME/.bashrc"
+source_bash () {
+    local bashfile="$HOME/.bashrc"
     if [[ ! -f $bashfile ]]; then
         echo "No .bashrc found"
         return 0
     fi
 
     # Ignore comment lines from the bashfile
-    contents=grep -vE "^\s*#" $bashfile
+    local contents=grep -vE "^\s*#" $bashfile
 
     if [[ $contents =~ "\bzsh\b" ]]; then
         echo "$bashrc calls zsh. Not loading .bashrc"
@@ -76,4 +76,4 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-
+eval "$(zoxide init --cmd cd zsh)"

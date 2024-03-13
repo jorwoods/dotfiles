@@ -1,7 +1,7 @@
 
 python_folders=$(find "$HOME/programs" -type d -maxdepth 1 -name "Python-3.*" 2>/dev/null)
 for folder in $python_folders; do
-	version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
+	local version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
 	if [ -x "$folder/python" ]; then
     if [ ! -f "$HOME/.local/bin/python$version" ]; then
       ln -s "$folder/python" "$HOME/.local/bin/python$version"
@@ -36,14 +36,14 @@ select_python() {
 }
 
 venv() {
-    venv_name=${1:-.venv}
-    py=$(select_python)
+    local venv_name=${1:-.venv}shel
+    local py=$(select_python)
     if [[ -z $py ]]; then
         echo "No python version selected"
         return 1
     fi
-    version=$($py --version)
-    folder=$(basename $PWD)
+    local version=$($py --version)
+    local folder=$(basename $PWD)
     if [[ -d $venv_name ]]; then
         echo "$venv_name already exists"
         return 1
@@ -61,7 +61,7 @@ venv() {
 }
 
 activate() {
-    venv_name=${1:-.venv}
+    local venv_name=${1:-.venv}
     if [[ ! -d $venv_name ]]; then
         echo "$venv_name does not exist"
         return 1
