@@ -23,3 +23,28 @@ alias lla="la -l"
 
 alias py="python3"
 
+# Neovim niceties
+alias nvimdiff="nvim -d"
+
+# Use exa if available
+if command -v exa &> /dev/null; then
+    alias ls="exa"
+    alias ll="exa -lh"
+    alias la="exa -a"
+fi
+
+# Use bat if available
+if command -v bat &> /dev/null; then
+    alias cat="bat"
+fi
+
+# Use fd if available
+if command -v fd &> /dev/null; then
+    alias find="fdfind"
+fi
+
+# Use ripgrep if available
+if command -v rg &> /dev/null; then
+    alias grep="rg"
+fi
+

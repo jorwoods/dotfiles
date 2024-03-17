@@ -22,11 +22,22 @@
 [rebase]
 	autoStash = true
 
-[merge]
-    conflictstyle = diff3
-
 [diff]
     colorMoved = default
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    layout = "@LOCAL,REMOTE"
+
+[merge]
+    conflictstyle = diff3
+    tool = nvimdiff
+
+[mergetool]
+    prompt = true
+
+[mergetool "nvimdiff"]
+	layout = LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE
 
 [push]
     autoSetupRemote = true
