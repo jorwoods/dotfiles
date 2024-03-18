@@ -26,11 +26,12 @@ alias py="python3"
 # Neovim niceties
 alias nvimdiff="nvim -d"
 
-# Use exa if available
-if command -v exa &> /dev/null; then
-    alias ls="exa"
-    alias ll="exa -lh"
-    alias la="exa -a"
+# Use eza if available
+if command -v eza &> /dev/null; then
+    alias ls="eza"
+    alias ll="eza -lh"
+    alias la="eza -a"
+    alias lla="eza -alh"
 fi
 
 # Use bat if available
