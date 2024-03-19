@@ -23,12 +23,13 @@ require("lazy").setup({
     },
     { 'ThePrimeagen/harpoon', },
     { 'ggandor/leap.nvim', },
-    { 'SmiteshP/nvim-navbuddy',
+    {
+        'SmiteshP/nvim-navbuddy',
         dependencies = {
             'SmiteshP/nvim-navic',
             'MunifTanjim/nui.nvim',
         },
-},
+    },
 
 
     -- Editing improvements
@@ -94,6 +95,7 @@ require("lazy").setup({
 
     -- NVIM niceties
     { 'folke/which-key.nvim',                    opts = {} },
+    { "numToStr/Fterm.nvim", },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = {
@@ -101,29 +103,29 @@ require("lazy").setup({
         }
     },
 
-  -- ORG MODE
-  {
-      'nvim-orgmode/orgmode',
-      dependencies = {'nvim-treesitter/nvim-treesitter', lazy = true },
-      event = 'VeryLazy',
-      config = function()
-          -- Load treesitter grammar for orgmode
-          require('orgmode').setup_ts_grammar()
+    -- ORG MODE
+    {
+        'nvim-orgmode/orgmode',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', lazy = true },
+        event = 'VeryLazy',
+        config = function()
+            -- Load treesitter grammar for orgmode
+            require('orgmode').setup_ts_grammar()
 
-        -- Setup treesitter
-        require('nvim-treesitter.configs').setup({
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = { 'org' },
-            },
-            ensure_installed = { 'org' },
-        })
-        require('orgmode').setup({
-            org_agenda_files = '~/orgfiles/**/*',
-            org_default_notes_file = '~/orgfiles/refile.org'
-        })
+            -- Setup treesitter
+            require('nvim-treesitter.configs').setup({
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = { 'org' },
+                },
+                ensure_installed = { 'org' },
+            })
+            require('orgmode').setup({
+                org_agenda_files = '~/orgfiles/**/*',
+                org_default_notes_file = '~/orgfiles/refile.org'
+            })
         end
-  },
+    },
 
     -- THEMES
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
