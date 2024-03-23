@@ -36,7 +36,7 @@ select_python() {
 }
 
 venv() {
-    local venv_name=${1:-.venv}shel
+    local venv_name=${1:-.venv}
     local py=$(select_python)
     if [[ -z $py ]]; then
         echo "No python version selected"
