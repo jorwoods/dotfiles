@@ -55,5 +55,10 @@ clone() {
 }
 
 gaf() {
-    git add $(rg --files --hidden --glob "!**.git/*" | fzf -m --preview "cat {}" --preview-window=right:60% | tr "\n" " ")
+    files=rg --files --hidden --glob "!**.git/*" | fzf -m --preview "cat {}" --preview-window=right:60% | tr "\n" " "
+    # check if files is empty
+    if [[ -z $files ]]; then
+        return 1
+    fi
+    git add $files
 }
