@@ -130,4 +130,6 @@ require("lazy").setup({
     -- THEMES
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
+    -- Paste images from clipboard
+    { 'HakonHarnes/img-clip.nvim', }
 })

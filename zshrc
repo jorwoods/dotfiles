@@ -16,6 +16,8 @@ for file in "$dir/shell_setup/"*; do
     fi
 done
 
+export PATH=$PATH:/snap/bin/
+
 
 source_bash () {
     local bashfile="$HOME/.bashrc"
