@@ -53,3 +53,7 @@ clone() {
     fi
     popd
 }
+
+gaf() {
+    git add $(rg --files --hidden --glob "!**.git/*" | fzf -m --preview "cat {}" --preview-window=right:60% | tr "\n" " ")
+}
