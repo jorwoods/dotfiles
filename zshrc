@@ -1,12 +1,20 @@
 # ZSH History
 export HISTFILE=~/.zsh_history
 export HISTSIZE=1000000000
+export SAVEHIST=1000000000
 export HISTFILESIZE=1000000000
-setopt INC_APPEND_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+setopt SHARE_HISTORY # Share history between all sessions
+setopt INC_APPEND_HISTORY # Write to history immediately, not when shell ends
+setopt HIST_IGNORE_ALL_DUPS # Do not record an event that was just recorded again
+setopt HIST_IGNORE_SPACE # Do not record events starting with a space
+setopt HIST_REDUCE_BLANKS # Remove superfluous blanks from each command line written to history
+setopt HIST_SAVE_NO_DUPS # Do not write a duplicate event to the history file
+setopt HIST_VERIFY # Do not execute immediately upon history expansion
+setopt HIST_NO_STORE # Don't store history commands
+
+HISTORY_IGNORE="(ls|cd|pwd|exit)*"
+HIST_STAMPS="yyyy-mm-dd"
 
 full_path=$(realpath "$HOME/.zshrc")
 dir=$(dirname $full_path)
@@ -37,7 +45,7 @@ source_bash () {
     source $bashfile
 
 }
-plugins=(git)
+plugins=(git fzf)
 
 
 which oh-my-posh > /dev/null
