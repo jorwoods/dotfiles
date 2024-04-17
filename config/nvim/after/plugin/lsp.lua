@@ -16,7 +16,18 @@ local on_attach = function(_, bufnr)
     nmap('gr', telescope.lsp_references, '[G]oto [R]eferences')
     nmap('gi', telescope.lsp_implementations, '[G]oto [I]mplementations')
     nmap('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinitions')
-    nmap('<leader>ws', telescope.lsp_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>ws', function ()
+       vim.ui.input( { prompt = "Symbol query: (leave blank for symbol under cursor)" }, function (query)
+        if (query) then
+            if (query == "") then query = vim.fn.expand("<cword>") end
+            telescope.lsp_workspace_symbols({
+                 query = query,
+                 prompt_title = ("Workspace Symbols (%s)"):format(query),
+            })
+
+        end
+       end)
+    end, '[W]orkspace [S]ymbols')
     nmap('<leader>gn', vim.diagnostic.goto_next, '[G]oto [N]ext Diagnostic')
     nmap('<leader>gp', vim.diagnostic.goto_prev, '[G]oto [P]revious Diagnostic')
     --  Need to find a different mapping for this due to conflict with delete keymap
