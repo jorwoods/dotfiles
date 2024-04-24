@@ -1,3 +1,7 @@
 #! /bin/sh
-
-git branch --all | fzf | sed 's/remotes\/origin\///' | sed 's/\*//' | sed 's/^[ ]*//' | xargs git checkout
+git for-each-ref --format='%(refname:short)' \
+    | grep -v ^original \
+    | grep -v stash \
+    | grep -v HEAD \
+    | fzf --preview 'git log -n5 {}' \
+    | xargs git checkout
