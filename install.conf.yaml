@@ -10,6 +10,7 @@
     ~/.bash_profile: bash_profile
     ~/.bashrc: bashrc
     ~/.config: config
+    ~/.fdignore: fdignore
     ~/.profile: profile
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
