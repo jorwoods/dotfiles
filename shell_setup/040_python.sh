@@ -51,7 +51,7 @@ venv() {
     echo "Creating virtual environment for $version in $venv_name"
     $py -m venv --prompt "$folder" $venv_name
     touch .gitignore > /dev/null 2>&1
-    if grep -L $venv_name .gitignore; then
+    if ! grep -q $venv_name .gitignore; then
         echo "Adding $venv_name/ to .gitignore"
         echo "$venv_name/" >> .gitignore
     fi
