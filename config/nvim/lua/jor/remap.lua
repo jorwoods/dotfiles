@@ -1,5 +1,4 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = 'Open project folder view' })
 
 vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
 vim.keymap.set("n", "<leader>ps", function()
