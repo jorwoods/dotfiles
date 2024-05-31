@@ -27,7 +27,7 @@ set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
 
 -- Delete to void register
 set("n", "<leader>dd", "\"_d", { desc = 'Delete and send to void' })
-set("n", "<leader>cc", "\"_c", { desc = 'Change and send to void' })
+set("n", "<leader><leader>c", "\"_c", { desc = 'Change and send to void' })
 
 -- Paste from system clipboard
 set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard' })
@@ -41,8 +41,8 @@ set("n", "<leader>ee", "oif err != nil {<CR>}<ESC>Oreturn err<ESC>",{ desc = "In
 -- These mappings control the size of splits (height/width)
 set("n", "<M-,>", "<c-w>5<", { desc = "Increase split width" })
 set("n", "<M-.>", "<c-w>5>", { desc = "Decrease split width" })
-set("n", "<M-t>", "<C-W>+", { desc = "Increase split height" })
-set("n", "<M-s>", "<C-W>-", { desc = "Decrease split height" })
+set("n", "<M-Up>", "<C-W>+", { desc = "Increase split height" })
+set("n", "<M-Down>", "<C-W>-", { desc = "Decrease split height" })
 
 -- lua execution
 set("n", "<leader>x", "<cmd>.lua<CR>", { desc = 'Execute lua line' })
