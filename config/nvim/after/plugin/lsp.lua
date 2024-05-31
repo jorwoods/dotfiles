@@ -44,7 +44,11 @@ local on_attach = function(_, bufnr)
 
     -- See `:help K` for more info
     nmap('K', vim.lsp.buf.hover, 'Show [D]ocumentation')
-    imap('<C-k>', vim.lsp.buf.hover, 'Show [D]ocumentation')
+    -- imap('<C-k>', vim.lsp.buf.hover, 'Show [D]ocumentation')
+    imap('<C-k>', function ()
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({bufnr = bufnr }), { bufnr = bufnr })
+    end, 'Show [D]ocumentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     -- Create a command `:Format` local to the LSP buffer
     nmap('<leader>ff', function() vim.lsp.buf.format { async = true } end, '[f]ormat [f]ile')
@@ -81,6 +85,7 @@ local servers = {
     },
     pyright = {
         python = {
+            inlay_hint = true,
             analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
