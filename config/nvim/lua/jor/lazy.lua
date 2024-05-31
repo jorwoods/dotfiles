@@ -154,7 +154,11 @@ require("lazy").setup({
       { "<leader>ccb", function ()
         local input = vim.fn.input("Quick chat:")
         if input ~= "" then
-            require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+            if vim.fn.exists(":CopilotChatBuffer") then
+                vim.cmd("CopilotChatBuffer " .. input)
+            else
+                require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+            end
         end
       end, desc = "CopilotChat - Chat with current buffer" },
       { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
