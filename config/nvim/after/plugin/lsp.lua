@@ -50,6 +50,7 @@ local on_attach = function(_, bufnr)
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({bufnr = bufnr }), { bufnr = bufnr })
     end, 'Show [D]ocumentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    imap('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
     -- Create a command `:Format` local to the LSP buffer
     nmap('<leader>ff', function() vim.lsp.buf.format { async = true } end, '[f]ormat [f]ile')
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -60,18 +61,32 @@ end
 -- lsp.setup()
 local mason_lspconfig = require('mason-lspconfig')
 
+local inlayHints = {
+    includeInlayEnumMemberValueHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayParameterNameHints = true,
+    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayVariableTypeHints = true,
+}
 
 local servers = {
     marksman = {},
     tsserver = {},
     taplo = {},
-    terraformls = {},
+    terraformls = {
+        Terraform = {
+            inlayHints = inlayHints,
+        },
+    },
     html = {},
     cssls = {},
     bashls = {},
     gopls = {},
     lua_ls = {
         Lua = {
+            inlayHints = inlayHints,
             workspace = { checkThirdPart = false },
             telemetry = { enable = false },
             diagnostics = {
@@ -85,7 +100,7 @@ local servers = {
     },
     pyright = {
         python = {
-            inlay_hint = true,
+            inlayHints = inlayHints,
             analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
