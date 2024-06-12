@@ -1,4 +1,4 @@
-# Add path and aliases for neovim if its present
+# Add path and aliases for n.tar.gz.tar.gzeovim if its present
 
 if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
     if [[ ! -d "$HOME/programs" ]]; then
@@ -7,16 +7,24 @@ if [[ ! -d "$HOME/programs/nvim-linux64" ]]; then
 
     pushd "$HOME/programs"
 
-    url="https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz"
+    local arch=$(uname --machine)
+    if [[ $arch =~ "(aarch64|arm64)" ]]; then
+        local format="nvim-macos-arm64"
+    else
+        local format="nvim-linux64"
+    fi
+
+
+    url="https://github.com/neovim/neovim/releases/download/v0.10.0/$format.tar.gz"
     wget $url
-    tar xzf nvim-linux64.tar.gz
-    rm nvim-linux64.tar.gz
+    tar xzf "$format.tar.gz" 
+    rm  "$format.tar.gz"
 
     popd
     
 fi
 if [[ ! -f "$HOME/.local/bin/nvim" ]]; then
-	ln -s "$HOME/programs/nvim-linux64/bin/nvim" "$HOME/.local/bin/nvim"
+	ln -s "$HOME/programs/$format/bin/nvim" "$HOME/.local/bin/nvim"
 fi
 
 alias vim="nvim"
