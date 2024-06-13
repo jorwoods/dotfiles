@@ -34,4 +34,5 @@ vim.keymap.set('n', '<leader>ps', function()
 end, { desc = '[P]roject [s]earch' })
 vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, { desc = 'Buffer [f]uzzy [s]earch' })
 vim.keymap.set('n', '<leader>gc', builtin.git_branches, { desc = '[G]it [C]heckout' })
+vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[B]uffers' })
 
