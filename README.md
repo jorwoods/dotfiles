@@ -10,7 +10,9 @@ windows, and then within WSL. This will add all of the certificate bundles from
 windows into WSL.
 
 ```sh
+sudo chmod o+w /usr/local/share/ca-certificates/
 python3 win_certs.py
+sudo chmod o-w /usr/local/share/ca-certificates/
 ```
 
 ## Configuring zsh
