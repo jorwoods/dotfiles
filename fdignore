@@ -2,3 +2,5 @@
 **/.venv/
 **/go/pkg/mod/
 **/.terraform/
+**/__pycache__/
+/mnt/c/
