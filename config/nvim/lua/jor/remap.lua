@@ -47,3 +47,15 @@ set("n", "<M-Down>", "<C-W>-", { desc = "Decrease split height" })
 -- lua execution
 set("n", "<leader>x", "<cmd>.lua<CR>", { desc = 'Execute lua line' })
 set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = 'Execute lua line' })
+
+-- Replace
+
+set("n", "r", function ()
+    local register = vim.fn.input("Enter register:")
+    local motion = vim.fn.input("Enter motion:")
+
+    vim.cmd('normal! "rd' .. motion)
+    vim.cmd('normal! h"' .. register .. 'p')
+
+end, { desc = '[r]eplace motion with given register' })
+
