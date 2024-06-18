@@ -8,6 +8,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4 -- shift 4 spaces when tab
 vim.opt.expandtab = true -- Use spaces instead of tab
 vim.opt.smartindent = true -- Autoindent newlines
+vim.opt.foldcolumn = '2'
 
 vim.opt.wrap = false
 
