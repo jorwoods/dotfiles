@@ -1,14 +1,18 @@
 
+local local_bin="$HOME/.local/bin"
 python_folders=$(find "$HOME/programs" -type d -maxdepth 1 -name "Python-3.*" 2>/dev/null)
 for folder in $python_folders; do
 	local version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
 	if [ -x "$folder/python" ]; then
-    if [ ! -f "$HOME/.local/bin/python$version" ]; then
-      ln -s "$folder/python" "$HOME/.local/bin/python$version"
+    if [ ! -f "$local_bin/python$version" ]; then
+      ln -s "$folder/python" "$local_bin/python$version"
     fi
 	fi
 done
 # Python will put binaries for pip and other tools in the ~/.local/bin folder 
+
+local py3=$(\find "$local_bin" -name "python3*" | sort -r | head -1)
+rm "$local_bin/python3" 2>/dev/null; ln -s "$py3" "$local_bin/python3"
 
 if [[ ! -d "$HOME/.virtualenvs" ]]; then
     mkdir "$HOME/.virtualenvs"
