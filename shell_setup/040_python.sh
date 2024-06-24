@@ -11,7 +11,7 @@ for folder in $python_folders; do
 done
 # Python will put binaries for pip and other tools in the ~/.local/bin folder 
 
-local py3=$(\find "$local_bin" -name "python3*" | sort -r | head -1)
+local py3=$(\find "$local_bin" -name "python3*" | sort -Vr | head -1)
 rm "$local_bin/python3" 2>/dev/null; ln -s "$py3" "$local_bin/python3"
 
 if [[ ! -d "$HOME/.virtualenvs" ]]; then
