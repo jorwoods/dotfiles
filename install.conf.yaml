@@ -23,7 +23,6 @@
     ~/.local/bin/cht: scripts/cht.sh
     ~/.local/bin/gb: scripts/gb.sh
     ~/.tmuxifier: config/tmux/plugins/tmuxifier
-    ~/.ipython: config/ipython
 
 - create:
     - ~/downloads
