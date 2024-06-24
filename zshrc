@@ -25,6 +25,7 @@ for file in "$dir/shell_setup/"*; do
 done
 
 export PATH=$PATH:/snap/bin/
+export NODE_EXTRA_CA_CERTS="$HOME/windows_certs.pem"
 
 
 source_bash () {
