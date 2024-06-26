@@ -62,3 +62,8 @@ gaf() {
     fi
     git add $files
 }
+
+prune() {
+    git fetch --prune
+    git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+}
