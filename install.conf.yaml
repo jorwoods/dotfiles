@@ -11,6 +11,7 @@
     ~/.bashrc: bashrc
     ~/.config: config
     ~/.fdignore: fdignore
+    ~/.fzf.zsh: fzf.zsh
     ~/.profile: profile
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
