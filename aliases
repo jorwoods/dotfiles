@@ -25,6 +25,7 @@ alias py="python3"
 alias pip="python3 -m pip"
 
 # Neovim niceties
+alias iv='nvim $(fzf -m --preview "bat --theme=Dracula --color=always --line-range :500 {}")'
 alias nvimdiff="nvim -d"
 
 # Use eza if available
@@ -36,13 +37,13 @@ if command -v eza &> /dev/null; then
 fi
 
 # Use bat if available
-if command -v bat &> /dev/null; then
-    alias cat="bat"
-fi
+command -v batcat && alias bat="batcat"
+command -v bat && alias cat="bat"
 
 # Use fd if available
-if command -v fd &> /dev/null; then
+if command -v fdfind &> /dev/null; then
     alias find="fdfind"
+    alias fd="fdfind"
 fi
 
 # Use ripgrep if available
