@@ -57,8 +57,12 @@ fi
 
 
 # SSH Agent
+keys='id_rsa'
+if [[ -f '$HOME/.ssh/github' ]]; then
+    keys='${keys} github'
+fi
 
-eval `keychain --eval --agents ssh id_rsa`
+eval `keychain --eval --agents ssh $keys`
  
 # User configuration
 
