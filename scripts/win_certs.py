@@ -14,7 +14,7 @@ def export_certs():
         for cert in ssl.enum_certificates(storename):
             cert_text = ssl.DER_cert_to_PEM_cert(cert[0])
             if cert_text not in pems:
-                pems.append()
+                pems.append(cert_text)
     if cert_file.exists():
         cert_data = cert_file.read_text()
     else:
@@ -36,6 +36,7 @@ def import_certs():
         out_file = Path('/usr/local/share/ca-certificates/') / f'windows_{i}.crt'
         out_file.write_text(cert)
     subprocess.run(["sudo", "update-ca-certificates"])
+    shutil.copy2(str(cert_bundle), str(Path.home() / "windows_certs.crt"))
 
 if __name__ == "__main__":
     if sys.platform.startswith("win"):
