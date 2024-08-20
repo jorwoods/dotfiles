@@ -1,10 +1,7 @@
 local builtin = require('telescope.builtin')
 local set = vim.keymap.set
 
-    set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
-set("n", "<leader>ps", function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") });
-end, { desc = 'Regex search within git tracked files' })
+set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
 
 -- Visual mode. Allows J and K to move selected blocks up and down.
 set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Move block down' })
