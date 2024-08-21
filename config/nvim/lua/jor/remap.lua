@@ -3,6 +3,15 @@ local set = vim.keymap.set
 
 set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
 
+-- Navigation
+set("n", "H", "^", { desc = 'Move to beginning of line' })
+set("n", "L", "$", { desc = 'Move to end of line' })
+
+-- Searches
+set("n", "<leader>ss", ":s/\\v", { desc = 'Search and replace on line' })
+set("n", "<leader>sf", ":%s/\\v", { desc = 'Search and replace in file' })
+set("v", "<leader>ss", ":s\\%V", { desc = 'Search and replace in selection' })
+
 -- Visual mode. Allows J and K to move selected blocks up and down.
 set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Move block down' })
 set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Move block up' })
