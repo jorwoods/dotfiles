@@ -18,7 +18,6 @@ set("n", "<C-u>", "<C-u>zz", { desc = 'Move screen up by half page' })
 set("x", "<leader>pr", "\"_dP", { desc = 'Replace with copied, sending cut text to void' })
 
 -- Gives a different hotkey to copy to the system clipboard
--- Gives a different hotkey to copy to the system clipboard
 set({ "n", "v" }, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
 set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
 
