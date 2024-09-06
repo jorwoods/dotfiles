@@ -26,11 +26,27 @@ telescope.setup({
 	},
 })
 
+local function get_visual_selection()
+  local _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+  local _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
+  local n_lines = math.abs(cerow - csrow) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, csrow - 1, cerow, false)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], cscol, cecol)
+  else
+    lines[1] = string.sub(lines[1], cscol, string.len(lines[1]))
+    lines[n_lines] = string.sub(lines[n_lines], 1, cecol)
+  end
+  return table.concat(lines, '\n')
+end
 
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[P]roject [f]iles' })
 vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[P]roject git [f]iles' })
 vim.keymap.set('n', '<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > "), use_regex = true });
+end, { desc = '[P]roject [s]earch' })
+vim.keymap.set('v', '<leader>ps', function()
+    builtin.grep_string({ search = get_visual_selection(), use_regex = false });
 end, { desc = '[P]roject [s]earch' })
 vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, { desc = 'Buffer [f]uzzy [s]earch' })
 vim.keymap.set('n', '<leader>gc', builtin.git_branches, { desc = '[G]it [C]heckout' })
