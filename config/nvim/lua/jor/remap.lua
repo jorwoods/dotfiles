@@ -64,3 +64,6 @@ set("n", "r", function ()
 
 end, { desc = '[r]eplace motion with given register' })
 
+-- Quickfix Navigation
+set("n", "<leader>.", ":cnext<CR>zz", { desc = 'Go to next quickfix item' })
+set("n", "<leader>,", ":cprev<CR>zz", { desc = 'Go to previous quickfix item' })
