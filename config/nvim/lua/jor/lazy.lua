@@ -21,6 +21,7 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     { 'ThePrimeagen/harpoon', },
+    { 'echasnovski/mini.nvim', version = false },
     -- { 'ggandor/leap.nvim', },
     {
       "folke/flash.nvim",
