@@ -73,7 +73,6 @@ local inlayHints = {
 
 local servers = {
     marksman = {},
-    tsserver = {},
     taplo = {},
     terraformls = {
         Terraform = {
