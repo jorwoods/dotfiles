@@ -49,6 +49,7 @@ require("lazy").setup({
     -- Editing improvements
     { 'mbbill/undotree' },
     { 'github/copilot.vim' },
+    { 'HiPhish/rainbow-delimiters.nvim' },
     { 'numToStr/Comment.nvim' }, -- Quick comment keybdings
 
 
