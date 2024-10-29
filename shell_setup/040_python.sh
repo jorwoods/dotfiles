@@ -65,10 +65,19 @@ venv() {
 }
 
 activate() {
-    local venv_name=${1:-.venv}
-    if [[ ! -d $venv_name ]]; then
-        echo "$venv_name does not exist"
+    local venvs=$(fd --hidden --no-ignore --max-depth 2 pyvenv.cfg)
+    local venv_count=$(echo $venvs | wc -l)
+    if [[ $venv_count -eq 0 ]]; then
+        echo "No virtual environments found"
         return 1
     fi
-    source $(pwd)/$venv_name/bin/activate
+    if [[ $venv_count -eq 1 ]]; then
+        source $(dirname $venvs)/bin/activate
+        return 0
+    fi
+    local venv_name=$(echo $venvs | xargs -L1 dirname | fzf --prompt="Select virtual environment:")
+
+    if [[ -n $venv_name ]]; then
+        source $venv_name/bin/activate
+    fi
 }
