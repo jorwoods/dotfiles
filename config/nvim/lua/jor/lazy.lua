@@ -110,7 +110,6 @@ require("lazy").setup({
 
     -- NVIM niceties
     { 'folke/which-key.nvim',                    opts = {} },
-    { "numToStr/Fterm.nvim", },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = {
