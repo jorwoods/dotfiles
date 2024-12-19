@@ -22,7 +22,6 @@ require("lazy").setup({
     },
     { 'ThePrimeagen/harpoon', },
     { 'echasnovski/mini.nvim', version = false },
-    -- { 'ggandor/leap.nvim', },
     {
       "folke/flash.nvim",
       event = "VeryLazy",
@@ -37,15 +36,6 @@ require("lazy").setup({
         { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
       },
     },
-    {
-        'SmiteshP/nvim-navbuddy',
-        dependencies = {
-            'SmiteshP/nvim-navic',
-            'MunifTanjim/nui.nvim',
-        },
-    },
-
-
     -- Editing improvements
     { 'mbbill/undotree' },
     { 'github/copilot.vim' },
@@ -121,28 +111,6 @@ require("lazy").setup({
       opts = {},
       -- Optional dependencies
       dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-
-    -- ORG MODE
-    {
-        'nvim-orgmode/orgmode',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', lazy = true },
-        event = 'VeryLazy',
-        config = function()
-
-            -- Setup treesitter
-            require('nvim-treesitter.configs').setup({
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = { 'org' },
-                },
-                ensure_installed = { 'org' },
-            })
-            require('orgmode').setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org'
-            })
-        end
     },
 
     -- THEMES
