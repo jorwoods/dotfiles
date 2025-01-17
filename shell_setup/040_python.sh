@@ -1,17 +1,17 @@
 
-local local_bin="$HOME/.local/bin"
+local_bin="$HOME/.local/bin"
 python_folders=$(find "$HOME/programs" -type d -maxdepth 1 -name "Python-3.*" 2>/dev/null)
 for folder in $python_folders; do
-	local version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
+	version=$(echo $folder | grep -oP "Python-\K3\.\d+" )
 	if [ -x "$folder/python" ]; then
     if [ ! -f "$local_bin/python$version" ]; then
       ln -s "$folder/python" "$local_bin/python$version"
     fi
 	fi
 done
-# Python will put binaries for pip and other tools in the ~/.local/bin folder 
+# Python will put binaries for pip and other tools in the ~/.local/bin folder
 
-local py3=$(\find "$local_bin" -name "python3*" | sort -Vr | head -1)
+py3=$(\find "$local_bin" -name "python3*" | sort -Vr | head -1)
 rm "$local_bin/python3" 2>/dev/null; ln -s "$py3" "$local_bin/python3"
 
 if [[ ! -d "$HOME/.virtualenvs" ]]; then
@@ -30,24 +30,28 @@ select_python() {
     for dir in $(echo $PATH | tr ":" "\n" | grep -v /mnt/c/); do
         # Find all executable files starting with 'python' in the current directory
         find $dir -name 'python*' -executable -maxdepth 1
-    done 2>/dev/null | 
+    done 2>/dev/null |
     # Exclude 'python*-config' from the output
-    grep -v config | 
+    grep -v config |
     # Sort the output and remove duplicate entries
-    sort -u | 
+    sort -u |
     # Use fzf for interactive selection
     fzf --prompt='Select python version:'
 }
 
 venv() {
-    local venv_name=${1:-.venv}
-    local py=$(select_python)
+    local venv_name
+    venv_name=${1:-.venv}
+    local py
+    py=$(select_python)
     if [[ -z $py ]]; then
         echo "No python version selected"
         return 1
     fi
-    local version=$($py --version)
-    local folder=$(basename $PWD)
+    local version
+    version=$($py --version)
+    local folder
+    folder=$(basename $PWD)
     if [[ -d $venv_name ]]; then
         echo "$venv_name already exists"
         return 1
@@ -65,8 +69,10 @@ venv() {
 }
 
 activate() {
-    local venvs=$(fd --hidden --no-ignore --max-depth 2 pyvenv.cfg)
-    local venv_count=$(echo $venvs | wc -l)
+    local venvs
+    venvs=$(fd --hidden --no-ignore --max-depth 2 pyvenv.cfg)
+    local venv_count
+    venv_count=$(echo $venvs | wc -l)
     if [[ $venv_count -eq 0 ]]; then
         echo "No virtual environments found"
         return 1
@@ -75,7 +81,8 @@ activate() {
         source $(dirname $venvs)/bin/activate
         return 0
     fi
-    local venv_name=$(echo $venvs | xargs -L1 dirname | fzf --prompt="Select virtual environment:")
+    local venv_name
+    venv_name=$(echo $venvs | xargs -L1 dirname | fzf --prompt="Select virtual environment:")
 
     if [[ -n $venv_name ]]; then
         source $venv_name/bin/activate

@@ -1,8 +1,8 @@
 export BROWSER=sensible-browser
-if [[ ! -d "$HOME/.local/bin" ]]; then
-	mkdir "$HOME/.local/bin"
+if [[ ! -d "${HOME}/.local/bin" ]]; then
+	mkdir "${HOME}/.local/bin"
 fi
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="${HOME}/.local/bin:$PATH"
 
 
 
@@ -21,6 +21,6 @@ export FZF_DEFAULT_COMMAND='fd . --hidden --exclude ".git" --exclude .venv'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git" --glob "!.venv"'
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f "${HOME}/.fzf.zsh" ]] && source "${HOME}/.fzf.zsh"
 
 export PATH=$PATH:/usr/local/go/bin

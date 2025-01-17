@@ -16,54 +16,52 @@ setopt HIST_NO_STORE # Don't store history commands
 HISTORY_IGNORE="(ls|cd|pwd|exit)*"
 HIST_STAMPS="yyyy-mm-dd"
 
-full_path=$(realpath "$HOME/.zshrc")
-dir=$(dirname $full_path)
-for file in "$dir/shell_setup/"*; do
-    if [[ -f $file ]]; then
-        source $file
+full_path=$(realpath "${HOME}/.zshrc")
+dir=$(dirname ${full_path})
+for file in "${dir}/shell_setup/"*; do
+    if [[ -f "${file}" ]]; then
+        source "${file}"
     fi
 done
 
-export PATH=$PATH:/snap/bin/
-export NODE_EXTRA_CA_CERTS="$HOME/windows_certs.pem"
+export PATH="${PATH}:/snap/bin/"
+export NODE_EXTRA_CA_CERTS="${HOME}/windows_certs.pem"
 
 
 source_bash () {
-    local bashfile="$HOME/.bashrc"
-    if [[ ! -f $bashfile ]]; then
+    local bashfile
+    bashfile="${HOME}/.bashrc"
+    if [[ ! -f "${bashfile}" ]]; then
         echo "No .bashrc found"
         return 0
     fi
 
     # Ignore comment lines from the bashfile
-    local contents=grep -vE "^\s*#" $bashfile
+    local contents
+    contents=grep -vE "^\s*#" "${bashfile}"
 
     if [[ $contents =~ "\bzsh\b" ]]; then
-        echo "$bashrc calls zsh. Not loading .bashrc"
+        echo "${bashrc} calls zsh. Not loading .bashrc"
         return 1
     fi
 
-    source $bashfile
+    source "${bashfile}"
 
 }
 plugins=(git fzf)
 
 
-which oh-my-posh > /dev/null
-if [[ $? -eq 0 ]]; then
-  eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
-
-fi
+which oh-my-posh > /dev/null && eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
 
 
 # SSH Agent
 keys='id_rsa'
-if [[ -f '$HOME/.ssh/github' ]]; then
-    keys='${keys} github'
+if [[ -f "${HOME}/.ssh/github" ]]; then
+    keys="${keys} github"
 fi
 
-eval `keychain --eval --agents ssh $keys`
- 
+eval `keychain --eval --agents ssh "${keys}"`
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -84,8 +82,8 @@ eval `keychain --eval --agents ssh $keys`
 
 # tabtab source for packages
 # uninstall by removing these lines
-[ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
-if [[ -f "$HOME/.aliases" ]]; then 
+[[ -f ~/.config/tabtab/__tabtab.bash ]] && . ~/.config/tabtab/__tabtab.bash || true
+if [[ -f "$HOME/.aliases" ]]; then
   source "$HOME/.aliases"
 fi
 autoload -U +X bashcompinit && bashcompinit
@@ -93,4 +91,4 @@ complete -o nospace -C /usr/local/bin/terraform terraform
 
 eval "$(zoxide init --cmd cd zsh)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
