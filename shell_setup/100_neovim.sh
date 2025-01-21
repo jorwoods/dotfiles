@@ -29,4 +29,4 @@ fi
 
 alias vim="nvim"
 
-command -v nvim > /dev/null && export MANPAGER='nvim +Man!'
+command -v nvim &> /dev/null && export MANPAGER='nvim +Man!'

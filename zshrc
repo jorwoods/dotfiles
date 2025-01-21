@@ -51,7 +51,7 @@ source_bash () {
 plugins=(git fzf)
 
 
-which oh-my-posh > /dev/null && eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
+which oh-my-posh &> /dev/null && eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
 
 
 # SSH Agent
