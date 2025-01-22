@@ -55,11 +55,15 @@ which oh-my-posh &> /dev/null && eval "$(oh-my-posh init zsh --config '~/.mythem
 
 
 # SSH Agent
-keys=('id_rsa')
-if [[ -f "${HOME}/.ssh/github" ]]; then
-    keys+=("github")
-fi
-
+keys=()
+for file in "${HOME}/.ssh/"*; do
+    if [[ -f "${file}" ]]; then
+        chmod 600 "${file}"
+    fi
+    if [[ "-----BEGIN OPENSSH PRIVATE KEY-----" == $(head -n 1 "${file}") ]]; then
+        keys+=("$(basename "${file}")")
+    fi
+done
 eval `keychain --eval --agents ssh ${keys[*]}`
 
 # User configuration
