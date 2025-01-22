@@ -51,3 +51,6 @@ if command -v rg &> /dev/null; then
     alias grep="rg"
 fi
 
+# Alias terraform to tf if available
+command -v terraform &> /dev/null && alias tf="terraform"
+
