@@ -2,7 +2,7 @@ get_remote() {
     local remote
     remote=$(
         git status --short --branch |
-        grep -oP "(?<=\.{3}).*(?= \[)" |
+        \grep -oP "(?<=\.{3}).*(?= \[)" |
         sed 's/\/.*//'
     )
     if [[ -n "${remote}" ]]; then
@@ -35,7 +35,7 @@ push() {
     local lines
     lines=$(git ls-remote --heads "${remote}" "${branch}")
     if [[ -z "${lines}" ]]; then
-        git push --set-upstream "${remote}""${branch}"
+        git push --set-upstream "${remote}" "${branch}"
         return 0
     fi
     git push
