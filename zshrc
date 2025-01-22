@@ -55,12 +55,12 @@ which oh-my-posh &> /dev/null && eval "$(oh-my-posh init zsh --config '~/.mythem
 
 
 # SSH Agent
-keys='id_rsa'
+keys=('id_rsa')
 if [[ -f "${HOME}/.ssh/github" ]]; then
-    keys="${keys} github"
+    keys+=("github")
 fi
 
-eval `keychain --eval --agents ssh "${keys}"`
+eval `keychain --eval --agents ssh ${keys[*]}`
 
 # User configuration
 
