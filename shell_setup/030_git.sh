@@ -70,6 +70,18 @@ gaf() {
 }
 
 prune() {
+    local force
+    force="-d"
+    while getopts "f" opt; do
+        case ${opt} in
+            f)
+                force="-D"
+                ;;
+            *)
+                ;;
+        esac
+    done
+
     git fetch --prune
-    git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+    git branch -vv | awk '/: gone]/{print $1}' | xargs git branch "${force}"
 }
