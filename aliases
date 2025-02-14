@@ -52,5 +52,9 @@ if command -v rg &> /dev/null; then
 fi
 
 # Alias terraform to tf if available
-command -v terraform &> /dev/null && alias tf="terraform"
+if command -v terraform &> /dev/null; then
+    alias tf="terraform"
+    alias tfp="terraform plan -out=tfplan"
+    alias tfa="terraform apply tfplan"
+fi
 
