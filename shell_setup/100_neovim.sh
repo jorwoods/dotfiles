@@ -28,5 +28,6 @@ if [[ ! -f "${HOME}/.local/bin/nvim" ]]; then
 fi
 
 alias vim="nvim"
+export EDITOR="nvim"
 
 command -v nvim &> /dev/null && export MANPAGER='nvim +Man!'
