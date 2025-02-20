@@ -13,7 +13,7 @@ setopt HIST_SAVE_NO_DUPS # Do not write a duplicate event to the history file
 setopt HIST_VERIFY # Do not execute immediately upon history expansion
 setopt HIST_NO_STORE # Don't store history commands
 
-HISTORY_IGNORE="(ls|cd|pwd|exit)*"
+HISTORY_IGNORE="(\s+|ls|cd|pwd|exit)*"
 HIST_STAMPS="yyyy-mm-dd"
 
 full_path=$(realpath "${HOME}/.zshrc")
