@@ -65,6 +65,9 @@ venv() {
         echo "${venv_name} already exists"
         return 1
     fi
+    if [[ "${venv_name}" != .venv ]]; then
+        folder="${folder} ${venv_name}"
+    fi
     echo "Creating virtual environment for ${version} in ${venv_name}"
     "$py" -m venv --prompt "${folder}" "${venv_name}"
     touch .gitignore &> /dev/null
@@ -87,7 +90,7 @@ activate() {
         return 1
     fi
     if [[ "${venv_count}" -eq 1 ]]; then
-        source $(dirname "${venvs}")/bin/activate
+        source "$(dirname "${venvs}")/bin/activate"
         return 0
     fi
     local venv_name
