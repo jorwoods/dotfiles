@@ -38,7 +38,7 @@ select_python() {
     # Iterate over each directory in the PATH variable
     for dir in $(echo "${PATH}" | tr ":" "\n" | grep -v /mnt/c/); do
         # Find all executable files starting with 'python' in the current directory
-        find "$dir" -name 'python*' -executable -maxdepth 1
+        \find "${dir}" -name 'python*' -executable -maxdepth 1
     done 2>/dev/null |
     # Exclude 'python*-config' from the output
     grep -v config |
@@ -67,7 +67,7 @@ venv() {
     fi
     echo "Creating virtual environment for ${version} in ${venv_name}"
     "$py" -m venv --prompt "${folder}" "${venv_name}"
-    touch .gitignore > /dev/null 2>&1
+    touch .gitignore &> /dev/null
     if ! grep -q "${venv_name}" .gitignore; then
         echo "Adding ${venv_name}/ to .gitignore"
         echo "${venv_name}/" >> .gitignore
