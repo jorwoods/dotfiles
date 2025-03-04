@@ -50,6 +50,10 @@ source_bash () {
 }
 plugins=(git fzf)
 
+help () {
+    bash -c "help $@"
+}
+
 
 which oh-my-posh &> /dev/null && eval "$(oh-my-posh init zsh --config '~/.mytheme.omp.json')"
 
