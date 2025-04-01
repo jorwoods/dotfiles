@@ -1,6 +1,16 @@
-# Add path and aliases for n.tar.gz.tar.gzeovim if its present
+nvim_version="v0.11.0"
+nvim_install_dir="${HOME}/programs/nvim-linux64"
+nvim_exec="${nvim_install_dir}/bin/nvim"
 
-if [[ ! -d "${HOME}/programs/nvim-linux64" ]]; then
+if [[ -f "${nvim_exec}" ]]; then
+    version=$("${nvim_exec}" --version | head -n 1 | awk '{print $2}')
+    if [[ "${version}" != "${nvim_version}" ]]; then
+        echo "Neovim version mismatch: ${version} != ${nvim_version}"
+        rm -rf "${nvim_install_dir}"
+    fi
+fi
+
+if [[ ! -d "${nvim_install_dir}" ]]; then
     if [[ ! -d "${HOME}/programs" ]]; then
         mkdir "${HOME}/programs"
     fi
@@ -11,11 +21,11 @@ if [[ ! -d "${HOME}/programs/nvim-linux64" ]]; then
     if [[ "${arch}" =~ (aarch64|arm64) ]]; then
         format="nvim-macos-arm64"
     else
-        format="nvim-linux64"
+        format="nvim-linux-x86_64"
     fi
 
 
-    url="https://github.com/neovim/neovim/releases/download/v0.10.0/${format}.tar.gz"
+    url="https://github.com/neovim/neovim/releases/download/${nvim_version}/${format}.tar.gz"
     wget "${url}"
     tar xzf "${format}.tar.gz"
     rm  "${format}.tar.gz"
@@ -24,7 +34,7 @@ if [[ ! -d "${HOME}/programs/nvim-linux64" ]]; then
 
 fi
 if [[ ! -f "${HOME}/.local/bin/nvim" ]]; then
-	ln -s "${HOME}/programs/${format}/bin/nvim" "${HOME}/.local/bin/nvim"
+	ln -sf "${HOME}/programs/${format}/bin/nvim" "${HOME}/.local/bin/nvim"
 fi
 
 alias vim="nvim"
