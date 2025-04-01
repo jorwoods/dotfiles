@@ -37,7 +37,8 @@ if [[ ! -f "${HOME}/.local/bin/nvim" ]]; then
 	ln -sf "${HOME}/programs/${format}/bin/nvim" "${HOME}/.local/bin/nvim"
 fi
 
-alias vim="nvim"
-export EDITOR="nvim"
-
-command -v nvim &> /dev/null && export MANPAGER='nvim +Man!'
+if command -v nvim &> /dev/null; then
+    alias vim="nvim"
+    export EDITOR="nvim"
+    export MANPAGER='nvim +Man!'
+fi
