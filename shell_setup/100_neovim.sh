@@ -1,5 +1,12 @@
 nvim_version="v0.11.0"
-nvim_install_dir="${HOME}/programs/nvim-linux64"
+arch=$(uname --machine)
+if [[ "${arch}" =~ (aarch64|arm64) ]]; then
+    format="nvim-macos-arm64"
+else
+    format="nvim-linux-x86_64"
+fi
+
+nvim_install_dir="${HOME}/programs/${format}"
 nvim_exec="${nvim_install_dir}/bin/nvim"
 
 if [[ -f "${nvim_exec}" ]]; then
@@ -16,13 +23,6 @@ if [[ ! -d "${nvim_install_dir}" ]]; then
     fi
 
     pushd "${HOME}/programs" || exit
-
-    arch=$(uname --machine)
-    if [[ "${arch}" =~ (aarch64|arm64) ]]; then
-        format="nvim-macos-arm64"
-    else
-        format="nvim-linux-x86_64"
-    fi
 
 
     url="https://github.com/neovim/neovim/releases/download/${nvim_version}/${format}.tar.gz"
