@@ -8,6 +8,14 @@
             {
                 "language": "terraform",
                 "path": "./terraform.jsonc"
+            },
+            {
+                "language": "python",
+                "path": "./python.jsonc"
+            },
+            {
+                "language": "javascript",
+                "path": "./javascript.jsonc"
             }
         ]
     }
