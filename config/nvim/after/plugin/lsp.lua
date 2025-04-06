@@ -45,7 +45,7 @@ local on_attach = function(_, bufnr)
     -- See `:help K` for more info
     nmap('K', vim.lsp.buf.hover, 'Show [D]ocumentation')
     -- imap('<C-k>', vim.lsp.buf.hover, 'Show [D]ocumentation')
-    imap('<C-k>', function ()
+    imap('<C-e>', function ()
         local bufnr = vim.api.nvim_get_current_buf()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({bufnr = bufnr }), { bufnr = bufnr })
     end, 'Show [D]ocumentation')
@@ -137,6 +137,10 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 require('luasnip.loaders.from_vscode').lazy_load({ paths = { "./snippets" } })
 luasnip.config.setup {}
+-- Set keymaps for navigating snippets
+vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() luasnip.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() luasnip.jump(-1) end, {silent = true})
 
 cmp.setup {
     snippet = {
