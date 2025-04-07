@@ -4,3 +4,4 @@
 **/.terraform/
 **/__pycache__/
 /mnt/c/
+**/site-packages/
