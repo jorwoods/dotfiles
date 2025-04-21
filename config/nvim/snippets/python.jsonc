@@ -1,0 +1,98 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"New class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:ClassName}(${2:object}):",
+            "\t$BLOCK_COMMENT_START${3:docstring for $1.}$BLOCK_COMMENT_END",
+            "\tdef __init__(self, ${4:arg}):",
+            "\t\t${5:super($1, self).__init__()}",
+            "\t${4/([^,=:]+)(?::\\s*[\\w\\[\\],\\s])?(?:=[^,]+)?(,\\s*|)/\tself.$1 = $1${2:+\n\t}/g}",
+            "\n\t$0"
+        ],
+        "description" : "Code snippet for a class definition."
+    },
+	"try:except:": {
+        "prefix": "try",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "except KeyboardInterrupt:",
+            "\traise",
+            "except ${2:Exception} as ${3:e}:",
+            "\t${4:raise $3}",
+            "else:",
+            "\t${5:...}",
+            "finally:",
+            "\t${6:...}"
+
+        ],
+        "description" : "Code Snippet for a try and except blocks."
+    },
+    "main": {
+        "prefix": "main",
+        "body": [
+            "def main():",
+            "\t${0:...}",
+            "",
+            "",
+            "if __name__ == \"__main__\":",
+            "\tmain()"
+        ]
+    },
+    "decorator": {
+        "prefix": "dec",
+        "body": [
+            "${1:import functools\nfrom typing import Callable, ParamSpec, TypeVar}",
+            "",
+            "${2:P} = ParamSpec(\"$2\")",
+            "${3:T} = TypeVar(\"$3\")",
+            "",
+            "def ${4:decorator}(func: Callable[$2, $3]) -> Callable[$2, $3]:",
+            "\t@functools.wraps",
+            "\tdef wrapper(*args, **kwargs):",
+            "\t\tprint(\"Wrapped function\")",
+            "\t\treturn func(*args, **kwargs)",
+            "",
+            "\treturn wrapper",
+            "",
+            ""
+        ],
+        "description": "Create a decorator frame"
+    },
+    "script": {
+        "prefix": "script",
+        "body": [
+            "# /// script",
+            "# requires-python = \">=3.${1:12}\"",
+            "# dependencies = [",
+            "#",
+            "# ]",
+            "# ///"
+        ],
+        "description": "PEP 723 script metadata"
+    },
+    "Write Excel": {
+        "prefix": "we",
+        "body": [
+            "# Excelwriter",
+            "with pd.ExcelWriter(report_file, engine='xlsxwriter', date_format='mmm-yyyy', datetime_format='mmm-yyyy') as writer:",
+            "\t$1.to_excel(writer, sheet_name='$2')",
+            "\tworkbook = writer.book",
+            "\tworkbook.set_properties({'category': r'$TM_DIRECTORY', 'author': '$TM_FILENAME'})",
+        ],
+        "description": "Write Excel file"
+        }
+}
