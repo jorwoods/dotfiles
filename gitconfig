@@ -6,7 +6,7 @@
     path = ~/.gitconfig_local
 
 [core]
-	editor = nvim 
+	editor = nvim
 
 [alias]
 	a = add
@@ -18,7 +18,7 @@
 	stat = status
 	amend = !git commit --amend --no-edit
 	pfwl = !git push --force-with-lease
-    
+
 [rebase]
 	autoStash = true
 
@@ -26,6 +26,7 @@
     enabled = true
 
 [diff]
+    algorithm = histogram
     colorMoved = default
     tool = nvimdiff
 
