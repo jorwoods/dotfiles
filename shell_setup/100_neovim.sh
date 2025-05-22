@@ -44,7 +44,7 @@ install_neovim() {
         nvim_exec=$(command -v nvim)
         version=$("${nvim_exec}" --version | head -n 1 | awk '{print $2}')
         if [[ "${version}" != "${nvim_version}" ]]; then
-            echo "Neovim version mismatch: ${version} != ${nvim_version}"
+            echo "Neovim version mismatch: ${version} != ${nvim_version}" 1>&2
             make clean
             git fetch --tags
             git checkout "${nvim_version}"
@@ -67,7 +67,7 @@ install_neovim() {
     if [[ -f "build/bin/nvim" && -x "build/bin/nvim" ]]; then
         echo "Neovim installed successfully."
     else
-        echo "Neovim installation failed."
+        echo "Neovim installation failed." 1>&2
     fi
     cd "${start_dir}" > /dev/null
 }
@@ -85,7 +85,7 @@ link_neovim() {
 }
 
 main() {
-    install_neovim
+    install_neovim > /dev/null
     link_neovim
 }
 
