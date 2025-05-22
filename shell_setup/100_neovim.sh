@@ -20,6 +20,8 @@ debian_prerequisites() {
 install_neovim() {
     local nvim_version
     nvim_version="v0.11.0"
+    local start_dir
+    start_dir="${PWD}"
 
     if command -v apt &> /dev/null; then
         debian_prerequisites
@@ -28,13 +30,14 @@ install_neovim() {
     if [[ ! -d "${HOME}/programs" ]]; then
         mkdir "${HOME}/programs"
     fi
-    pushd "${HOME}/programs" || exit
+    cd "${HOME}/programs" > /dev/null
 
     if [[ ! -d "${HOME}/programs/neovim" ]]; then
         git clone https://www.github.com/neovim/neovim --depth 1
         git checkout "${nvim_version}"
     fi
-    pushd neovim || exit
+    cd neovim > /dev/null
+
 
     # Check if the correct version is installed
     if command -v nvim &> /dev/null; then
@@ -47,7 +50,7 @@ install_neovim() {
             git checkout "${nvim_version}"
         else
             echo "Neovim version ${version} is already installed."
-            popd || exit
+            cd "${start_dir}" > /dev/null
             return
         fi
 
@@ -65,9 +68,8 @@ install_neovim() {
         echo "Neovim installed successfully."
     else
         echo "Neovim installation failed."
-        popd || exit
-        return
     fi
+    cd "${start_dir}" > /dev/null
 }
 
 link_neovim() {
