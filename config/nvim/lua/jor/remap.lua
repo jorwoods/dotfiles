@@ -53,6 +53,11 @@ set("n", "<M-Down>", "<C-W>-", { desc = "Decrease split height" })
 set("n", "<leader>x", "<cmd>.lua<CR>", { desc = 'Execute lua line' })
 set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = 'Execute lua line' })
 
+-- Line endings
+set("n", "<leader>,", "mzA,<Esc>`z", { desc = 'Append comma to end of line' })
+set("n", "<leader>;", "mzA;<Esc>`z", { desc = 'Append semicolon to end of line' })
+
+
 -- Replace
 
 set("n", "r", function ()
