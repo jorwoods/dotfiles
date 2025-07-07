@@ -83,5 +83,12 @@ prune() {
     done
 
     git fetch --prune
-    git branch -vv | awk '/: gone]/{print $1}' | xargs git branch "${force}"
+    local branches
+    branches=$(git branch -vv | awk '/: gone]/{print $1}')
+    if [[ -z "${branches}" ]]; then
+        echo "No branches to prune"
+        return 0
+    else
+        branches | xargs git branch "${force}"
+    fi
 }
