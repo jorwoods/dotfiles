@@ -34,6 +34,7 @@ install_neovim() {
 
     if [[ ! -d "${HOME}/programs/neovim" ]]; then
         git clone https://www.github.com/neovim/neovim --depth 1
+        git fetch -t
         git checkout "${nvim_version}"
     fi
     cd neovim > /dev/null
