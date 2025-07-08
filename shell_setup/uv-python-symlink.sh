@@ -44,7 +44,7 @@ then
     if [[ -e "${DEST}" ]]
     then
         echo "${DEST} already exists and is valid. Nothing to do."
-        exit
+        # exit
     else
         echo "${DEST} already exists but is broken. Removing."
         rm "${DEST}"
