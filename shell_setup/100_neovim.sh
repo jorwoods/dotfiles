@@ -1,19 +1,22 @@
 #! /usr/bin/env bash
-debian_prerequisites() {
-    # Check for missing packages
-    local required_packages
-    required_packages=(ninja-build gettext cmake curl build-essential)
+install_missing() {
+    local requested_packages
+    requested_packages=("$@")
     local missing_packages
     missing_packages=()
-    for pkg in "${required_packages[@]}"; do
-        if ! dpkg -l | grep -q "^ii  ${pkg} "; then
+    local existing_packages
+    existing_packages=$(dpkg -l | awk '$1 == "ii" {print $2}')
+
+    for pkg in "${requested_packages[@]}"; do
+        if ! echo "${existing_packages}" | grep -q "^${pkg}$"; then
             missing_packages+=("${pkg}")
         fi
     done
-
-    # Install missing packages if any
     if [[ ${#missing_packages[@]} -gt 0 ]]; then
-        sudo apt install "${missing_packages[@]}"
+        echo "Installing missing packages: ${missing_packages[*]}"
+        sudo apt install "${missing_packages[@]}" -y
+    else
+        echo "All requested packages are already installed."
     fi
 }
 
@@ -24,7 +27,7 @@ install_neovim() {
     start_dir="${PWD}"
 
     if command -v apt &> /dev/null; then
-        debian_prerequisites
+        install_missing ninja-build gettext cmake curl build-essential
     fi
 
     if [[ ! -d "${HOME}/programs" ]]; then
@@ -34,7 +37,7 @@ install_neovim() {
 
     if [[ ! -d "${HOME}/programs/neovim" ]]; then
         git clone https://www.github.com/neovim/neovim --depth 1
-        git fetch -t
+        git fetch --tags
         git checkout "${nvim_version}"
     fi
     cd neovim > /dev/null
