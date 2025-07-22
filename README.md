@@ -47,6 +47,12 @@ Then, install [Oh My Posh](https://ohmyposh.dev/docs/installation/linux).
 curl -s https://ohmyposh.dev/install.sh | bash -s
 ```
 
+Install `xdotool` to allow ^+ to zoom in and ^- to zoom out in the terminal.
+
+```bash
+sudo apt install xdotool
+```
+
 ## Installing Python
 Install the Python dependencies as defined in
 
@@ -91,14 +97,14 @@ tmux is installed by default on most linux based operating systems. After
 cloning this repo, tmux.conf will allow some customization of the multiplexer.
 
 To install plugins, once in a tmux session, hit the prefix, then I. The default
-prefix is C-b. 
+prefix is C-b.
 
 ## wslu
 
 Starting with Ubuntu 22.04 LTS, Ubuntu on WSL is no longer bundled with wslu.
 Add it's repository, and install.
 
-```sh 
+```sh
 sudo add-apt-repository ppa:wslutilities/wslu
 sudo apt update
 sudo apt install wslu
@@ -106,7 +112,7 @@ sudo apt install wslu
 
 ## zoxide, eza, and more
 
-Install rust from [rustup](https://rustup.rs/). 
+Install rust from [rustup](https://rustup.rs/).
 
 ### zoxide
 
