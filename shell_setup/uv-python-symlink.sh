@@ -44,7 +44,7 @@ main(){
 
     if [[ -L "${DEST}" ]]; then
         if [[ -e "${DEST}" ]] && [[ "$(realpath "${DEST}")" == "$(realpath "${LATESTPYTHON}")" ]]; then
-            echo "${DEST} already exists and is valid. Nothing to do."
+            # echo "${DEST} already exists and is valid. Nothing to do."
             return
         else
             echo "${DEST} already exists but is broken. Removing."
