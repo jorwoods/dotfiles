@@ -89,6 +89,6 @@ prune() {
         echo "No branches to prune"
         return 0
     else
-        branches | xargs git branch "${force}"
+        echo $branches | xargs git branch "${force}"
     fi
 }
