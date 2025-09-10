@@ -1,5 +1,6 @@
 require("mason").setup()
-local on_attach = function(_, bufnr)
+local on_attach = function(args)
+    local bufnr = args.buf
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
@@ -118,17 +119,14 @@ mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        require('lspconfig')[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = servers[server_name] or {},
-            filetypes = (servers[server_name] or {}).filetypes,
-        }
-    end
-}
+for server, config in pairs(servers) do
+  vim.lsp.config[server]['settings'] = config
+end
 
+vim.api.nvim_create_autocmd('LspAttach',{
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = on_attach,
+})
 -- Configure auto completions with
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp` for more info

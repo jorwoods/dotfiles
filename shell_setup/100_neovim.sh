@@ -22,7 +22,7 @@ install_missing() {
 
 install_neovim() {
     local nvim_version
-    nvim_version="v0.11.0"
+    nvim_version="v0.11.4"
     local start_dir
     start_dir="${PWD}"
 
