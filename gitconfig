@@ -49,3 +49,5 @@
 [init]
 	defaultBranch = main
 
+[stash]
+    showPatch = true
