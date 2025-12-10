@@ -4,3 +4,4 @@ tmux/plugins/
 config/tmux/plugins/
 config/go/
 config/ipython/*/history.sqlite
+config/gh/
