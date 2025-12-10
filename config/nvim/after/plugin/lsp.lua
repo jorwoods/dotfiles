@@ -98,7 +98,7 @@ local servers = {
               },
         },
     },
-    pyright = {
+    basedpyright = {
         python = {
             inlayHints = inlayHints,
             analysis = {
