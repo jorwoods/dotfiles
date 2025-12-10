@@ -2,12 +2,25 @@
 
 Additional setup may be required besides copying in the dotfiles.
 
+## SSL Certificates
+When first setting up WSL on enterprise machines, they may be configured with
+self signed certificates to allow deep packet inspection. If this is the case,
+there is a python script in the scripts folder that you first have to run on
+windows, and then within WSL. This will add all of the certificate bundles from
+windows into WSL.
+
+```sh
+sudo chmod o+w /usr/local/share/ca-certificates/
+python3 win_certs.py
+sudo chmod o-w /usr/local/share/ca-certificates/
+```
+
 ## Configuring zsh
 
-First, install zsh, keychain, and fzf.
+First, install helpful CLI tools
 
 ```bash
-sudo apt install zsh keychain fzf
+sudo apt install zsh keychain fzf rg fd-find
 ```
 
 Then, check if zsh is configured as a bootable shell.
@@ -32,6 +45,12 @@ Then, install [Oh My Posh](https://ohmyposh.dev/docs/installation/linux).
 
 ```bash
 curl -s https://ohmyposh.dev/install.sh | bash -s
+```
+
+Install `xdotool` to allow ^+ to zoom in and ^- to zoom out in the terminal.
+
+```bash
+sudo apt install xdotool
 ```
 
 ## Installing Python
@@ -70,3 +89,40 @@ Then, install the long term support version of NodeJS.
 nvm install --lts
 ```
 
+Installing node this way is crucial to have the LSPs for neovim work correctly.
+
+## Configuring tmux
+
+tmux is installed by default on most linux based operating systems. After
+cloning this repo, tmux.conf will allow some customization of the multiplexer.
+
+To install plugins, once in a tmux session, hit the prefix, then I. The default
+prefix is C-b.
+
+## wslu
+
+Starting with Ubuntu 22.04 LTS, Ubuntu on WSL is no longer bundled with wslu.
+Add it's repository, and install.
+
+```sh
+sudo add-apt-repository ppa:wslutilities/wslu
+sudo apt update
+sudo apt install wslu
+```
+
+## zoxide, eza, and more
+
+Install rust from [rustup](https://rustup.rs/).
+
+### zoxide
+
+```sh
+cargo install zoxide --locked
+eval "$(zoxide init --cmd cd zsh)"
+```
+
+### eza
+
+```sh
+cargo install eza
+```

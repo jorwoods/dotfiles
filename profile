@@ -26,6 +26,4 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$HOME/anaconda3/bin" ] ; then
-    PATH="$HOME/anaconda3/bin:$PATH"
-fi
+. "$HOME/.cargo/env"

@@ -1,11 +1,20 @@
 require("mason").setup()
-local on_attach = function(_, bufnr)
+local on_attach = function(args)
+    local bufnr = args.buf
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
         end
 
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    local imap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
+
+        vim.keymap.set('i', keys, func, { buffer = bufnr, desc = desc })
     end
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -16,7 +25,18 @@ local on_attach = function(_, bufnr)
     nmap('gr', telescope.lsp_references, '[G]oto [R]eferences')
     nmap('gi', telescope.lsp_implementations, '[G]oto [I]mplementations')
     nmap('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinitions')
-    nmap('<leader>ws', telescope.lsp_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>ws', function ()
+       vim.ui.input( { prompt = "Symbol query: (leave blank for symbol under cursor)" }, function (query)
+        if (query) then
+            if (query == "") then query = vim.fn.expand("<cword>") end
+            telescope.lsp_workspace_symbols({
+                 query = query,
+                 prompt_title = ("Workspace Symbols (%s)"):format(query),
+            })
+
+        end
+       end)
+    end, '[W]orkspace [S]ymbols')
     nmap('<leader>gn', vim.diagnostic.goto_next, '[G]oto [N]ext Diagnostic')
     nmap('<leader>gp', vim.diagnostic.goto_prev, '[G]oto [P]revious Diagnostic')
     --  Need to find a different mapping for this due to conflict with delete keymap
@@ -25,9 +45,15 @@ local on_attach = function(_, bufnr)
 
     -- See `:help K` for more info
     nmap('K', vim.lsp.buf.hover, 'Show [D]ocumentation')
+    -- imap('<C-k>', vim.lsp.buf.hover, 'Show [D]ocumentation')
+    imap('<C-e>', function ()
+        local bufnr = vim.api.nvim_get_current_buf()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({bufnr = bufnr }), { bufnr = bufnr })
+    end, 'Show [D]ocumentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    imap('<C-h>', vim.lsp.buf.signature_help, 'Signature Documentation')
     -- Create a command `:Format` local to the LSP buffer
-    nmap('<leader>f', function() vim.lsp.buf.format { async = true } end, '[f]ormat file')
+    nmap('<leader>ff', function() vim.lsp.buf.format { async = true } end, '[f]ormat [f]ile')
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
@@ -36,23 +62,45 @@ end
 -- lsp.setup()
 local mason_lspconfig = require('mason-lspconfig')
 
+local inlayHints = {
+    includeInlayEnumMemberValueHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayParameterNameHints = true,
+    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayVariableTypeHints = true,
+}
 
 local servers = {
     marksman = {},
-    tsserver = {},
     taplo = {},
-    terraformls = {},
+    terraformls = {
+        Terraform = {
+            inlayHints = inlayHints,
+        },
+    },
     html = {},
     cssls = {},
     bashls = {},
+    gopls = {},
     lua_ls = {
         Lua = {
+            inlayHints = inlayHints,
             workspace = { checkThirdPart = false },
             telemetry = { enable = false },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {
+                  'vim',
+                  'require'
+                },
+              },
         },
     },
-    pyright = {
+    basedpyright = {
         python = {
+            inlayHints = inlayHints,
             analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
@@ -61,7 +109,7 @@ local servers = {
             },
         },
     },
-    ruff_lsp = {},
+    ruff = {},
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -71,25 +119,26 @@ mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        require('lspconfig')[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = servers[server_name] or {},
-            filetypes = (servers[server_name] or {}).filetypes,
-        }
-    end
-}
+for server, config in pairs(servers) do
+  vim.lsp.config[server]['settings'] = config
+end
 
+vim.api.nvim_create_autocmd('LspAttach',{
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = on_attach,
+})
 -- Configure auto completions with
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp` for more info
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load({ paths = { "./snippets" } })
 luasnip.config.setup {}
+-- Set keymaps for navigating snippets
+vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() luasnip.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() luasnip.jump(-1) end, {silent = true})
 
 cmp.setup {
     snippet = {
@@ -98,17 +147,18 @@ cmp.setup {
         end,
     },
     mapping = {
+        -- n/p for next/previous selection in completion menu
         ['<C-p>'] = cmp.mapping.select_prev_item(),
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm {
+        ['<C-y>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        ['<C-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then

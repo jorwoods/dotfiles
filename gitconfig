@@ -6,8 +6,7 @@
     path = ~/.gitconfig_local
 
 [core]
-	editor = code --wait
-    pager = delta
+	editor = nvim
 
 [alias]
 	a = add
@@ -19,20 +18,36 @@
 	stat = status
 	amend = !git commit --amend --no-edit
 	pfwl = !git push --force-with-lease
-    
+
 [rebase]
 	autoStash = true
 
-[interactive]
-    diffFilter = delta --color-only
+[rerere]
+    enabled = true
 
-[delta]
-    navigate = true # use n and N to move between diff sections
-    light = false   # set to true if you're in a terminal w/ a light background color
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    layout = "@LOCAL,REMOTE"
 
 [merge]
     conflictstyle = diff3
+    tool = nvimdiff
 
-[diff]
-    colorMoved = default
+[mergetool]
+    prompt = true
 
+[mergetool "nvimdiff"]
+	layout = LOCAL,BASE,REMOTE / MERGED + BASE,LOCAL + BASE,REMOTE
+
+[push]
+    autoSetupRemote = true
+
+[init]
+	defaultBranch = main
+
+[stash]
+    showPatch = true

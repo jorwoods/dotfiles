@@ -1,0 +1,22 @@
+{
+    "name": "jorwoods-snippets",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "contributes":{
+        "snippets": [
+            {
+                "language": "terraform",
+                "path": "./terraform.jsonc"
+            },
+            {
+                "language": "python",
+                "path": "./python.jsonc"
+            },
+            {
+                "language": "javascript",
+                "path": "./javascript.jsonc"
+            }
+        ]
+    }
+}

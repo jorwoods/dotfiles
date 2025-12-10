@@ -1,0 +1,97 @@
+#! /usr/bin/env bash
+install_missing() {
+    local requested_packages
+    requested_packages=("$@")
+    local missing_packages
+    missing_packages=()
+    local existing_packages
+    existing_packages=$(dpkg -l | awk '$1 == "ii" {print $2}')
+
+    for pkg in "${requested_packages[@]}"; do
+        if ! echo "${existing_packages}" | grep -q "^${pkg}$"; then
+            missing_packages+=("${pkg}")
+        fi
+    done
+    if [[ ${#missing_packages[@]} -gt 0 ]]; then
+        echo "Installing missing packages: ${missing_packages[*]}"
+        sudo apt install "${missing_packages[@]}" -y
+    else
+        echo "All requested packages are already installed."
+    fi
+}
+
+install_neovim() {
+    local nvim_version
+    nvim_version="v0.11.4"
+    local start_dir
+    start_dir="${PWD}"
+
+    if command -v apt &> /dev/null; then
+        install_missing ninja-build gettext cmake curl build-essential
+    fi
+
+    if [[ ! -d "${HOME}/programs" ]]; then
+        mkdir "${HOME}/programs"
+    fi
+    cd "${HOME}/programs" > /dev/null
+
+    if [[ ! -d "${HOME}/programs/neovim" ]]; then
+        git clone https://www.github.com/neovim/neovim --depth 1
+        git fetch --tags
+        git checkout "${nvim_version}"
+    fi
+    cd neovim > /dev/null
+
+
+    # Check if the correct version is installed
+    if command -v nvim &> /dev/null; then
+        nvim_exec=$(command -v nvim)
+        version=$("${nvim_exec}" --version | head -n 1 | awk '{print $2}')
+        if [[ "${version}" != "${nvim_version}" ]]; then
+            echo "Neovim version mismatch: ${version} != ${nvim_version}" 1>&2
+            make clean
+            git fetch --tags
+            git checkout "${nvim_version}"
+        else
+            echo "Neovim version ${version} is already installed."
+            cd "${start_dir}" > /dev/null
+            return
+        fi
+
+    else
+        nvim_exec="${HOME}/.local/bin/nvim"
+    fi
+
+    make CMAKE_BUILD_TYPE=RelWithDebInfo
+    sudo make install
+
+    # Check if the installation was successful
+    # This is a workaround for the fact that the nvim executable is not in the PATH
+    # until the installation is complete
+    if [[ -f "build/bin/nvim" && -x "build/bin/nvim" ]]; then
+        echo "Neovim installed successfully."
+    else
+        echo "Neovim installation failed." 1>&2
+    fi
+    cd "${start_dir}" > /dev/null
+}
+
+link_neovim() {
+    if [[ ! -f "${HOME}/.local/bin/nvim" ]]; then
+        ln -sf "${HOME}/programs/neovim/build/bin/nvim" "${HOME}/.local/bin/nvim"
+    fi
+
+    if command -v nvim &> /dev/null; then
+        alias vim="nvim"
+        export EDITOR="nvim"
+        export MANPAGER='nvim +Man!'
+    fi
+}
+
+main() {
+    install_neovim > /dev/null
+    link_neovim
+}
+
+main
+

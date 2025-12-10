@@ -1,41 +1,77 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = 'Open project folder view' })
+local set = vim.keymap.set
 
-vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
-vim.keymap.set("n", "<leader>ps", function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") });
-end, { desc = 'Regex search within git tracked files' })
+set("n", "<C-p>", builtin.git_files, { desc = 'Navigate files tracked in git' })
+
+-- Navigation
+set("n", "H", "^", { desc = 'Move to beginning of line' })
+set("n", "L", "$", { desc = 'Move to end of line' })
+
+-- Searches
+set("n", "<leader>ss", ":s/\\v", { desc = 'Search and replace on line' })
+set("n", "<leader>sf", ":%s/\\v", { desc = 'Search and replace in file' })
+set("v", "<leader>ss", ":s\\%V", { desc = 'Search and replace in selection' })
 
 -- Visual mode. Allows J and K to move selected blocks up and down.
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Move block down' })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Move block up' })
+set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Move block down' })
+set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Move block up' })
 
 -- Keeps cursor in place when using "J" to append next line to current
-vim.keymap.set("n", "J", "mzJ`z", { desc = 'Append next line to current' })
+set("n", "J", "mzJ`z", { desc = 'Append next line to current' })
 
 -- Keeps cursor in the middle of the screen when moving with half page jumps
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Move screen down by half page' })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Move screen up by half page' })
+set("n", "<C-d>", "<C-d>zz", { desc = 'Move screen down by half page' })
+set("n", "<C-u>", "<C-u>zz", { desc = 'Move screen up by half page' })
 
 -- Replace with word copied, but send cut text into the void register
-vim.keymap.set("x", "<leader>pr", "\"_dP", { desc = 'Replace with copied, sending cut text to void' })
+set("x", "<leader>pr", "\"_dP", { desc = 'Replace with copied, sending cut text to void' })
 
 -- Gives a different hotkey to copy to the system clipboard
--- Gives a different hotkey to copy to the system clipboard
-vim.keymap.set({"n", "v"}, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
-vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
+set({ "n", "v" }, "<leader>y", "\"+y", { desc = 'Yank to system clipboard' })
+set("n", "<leader>Y", "\"+Y", { desc = 'Yank to system clipboard' })
 
 -- Delete to void register
-vim.keymap.set("n", "<leader>dd", "\"_d", { desc = 'Delete and send to void' })
+set("n", "<leader>dd", "\"_d", { desc = 'Delete and send to void' })
+set("n", "<leader><leader>c", "\"_c", { desc = 'Change and send to void' })
 
 -- Paste from system clipboard
-vim.keymap.set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard' })
-
+set("n", "<leader>pp", "\"+p", { desc = 'Paste from system clipboard' })
 
 -- Ignore Q
-vim.keymap.set("n", "Q", "<nop>")
+set("n", "Q", "<nop>")
 
--- Quick format
-vim.keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.format()
-end)
+-- golang error handling
+set("n", "<leader>ee", "oif err != nil {<CR>}<ESC>Oreturn err<ESC>",{ desc = "Insert golang error handler" })
+
+-- These mappings control the size of splits (height/width)
+set("n", "<M-,>", "<c-w>5<", { desc = "Increase split width" })
+set("n", "<M-.>", "<c-w>5>", { desc = "Decrease split width" })
+set("n", "<M-Up>", "<C-W>+", { desc = "Increase split height" })
+set("n", "<M-Down>", "<C-W>-", { desc = "Decrease split height" })
+
+-- lua execution
+set("n", "<leader>x", "<cmd>.lua<CR>", { desc = 'Execute lua line' })
+set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = 'Execute lua line' })
+
+-- Line endings
+set("n", "<leader>,", "mzA,<Esc>`z", { desc = 'Append comma to end of line' })
+set("n", "<leader>;", "mzA;<Esc>`z", { desc = 'Append semicolon to end of line' })
+
+
+-- Replace
+
+set("n", "r", function ()
+    local register = vim.fn.input("Enter register:")
+    local motion = vim.fn.input("Enter motion:")
+
+    vim.cmd('normal! "rd' .. motion)
+    vim.cmd('normal! h"' .. register .. 'p')
+
+end, { desc = '[r]eplace motion with given register' })
+
+-- Quickfix Navigation
+set("n", "<leader>.", ":cnext<CR>zz", { desc = 'Go to next quickfix item' })
+set("n", "<leader>,", ":cprev<CR>zz", { desc = 'Go to previous quickfix item' })
+set("n", "<leader>cq", function ()
+    vim.diagnostic.setqflist()
+end, { desc = 'Set quickfix list from diagnostics' })

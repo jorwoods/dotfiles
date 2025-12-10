@@ -1,2 +1,7 @@
 packer_compiled.lua
 config/github-copilot/hosts.json
+tmux/plugins/
+config/tmux/plugins/
+config/go/
+config/ipython/*/history.sqlite
+config/gh/

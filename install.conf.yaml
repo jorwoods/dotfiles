@@ -10,16 +10,20 @@
     ~/.bash_profile: bash_profile
     ~/.bashrc: bashrc
     ~/.config: config
+    ~/.fdignore: fdignore
+    ~/.fzf.zsh: fzf.zsh
     ~/.profile: profile
     ~/.zshrc: zshrc
     ~/.vimrc: vimrc
+    ~/.tmux: tmux
+    ~/.tmux.conf: config/tmux/tmux.conf
     ~/.gitconfig: gitconfig
     ~/.mytheme.omp.json: mytheme.omp.json
-    ~/.local/bin/make_venv: scripts/make_venv.py
     ~/.local/bin/install_python: scripts/install_python.sh
     ~/.local/bin/a: scripts/activate.sh
     ~/.local/bin/cht: scripts/cht.sh
-    config/tmux/tmux.conf: vendor/tmux/.tmux.conf
+    ~/.local/bin/gb: scripts/gb.sh
+    ~/.tmuxifier: config/tmux/plugins/tmuxifier
 
 - create:
     - ~/downloads
@@ -29,7 +33,7 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [chmod +x ~/.local/bin/make_venv, Making make_venv executable]
   - [chmod +x ~/.local/bin/install_python, Making install_python executable]
   - [chmod +x ~/.local/bin/a, Making activate executable]
   - [chmod +x ~/.local/bin/cht, Making cheatsheet executable]
+  - [chmod +x ~/.local/bin/gb, Making git branch executable]
