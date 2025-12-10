@@ -21,7 +21,7 @@
               "cache_duration": "none",
               "folder_icon": "\uf115",
               "folder_separator_icon": "\\",
-              "home_icon": "\uf02dc ",
+              "home_icon": "\uf015 ",
               "mapped_locations": {
                 "~/GitHub": "\uf408 "
               },
@@ -86,7 +86,7 @@
               "fetch_status": false,
               "fetch_upstream_icon": true
             },
-            "template": " ? ({{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }}) ",
+            "template": " ➜ ({{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }}) ",
             "foreground": "#ffffff",
             "powerline_symbol": "\ue0b0",
             "background": "#FCA17D",
@@ -186,7 +186,7 @@
             "properties": {
               "cache_duration": "none"
             },
-            "template": " <#45F1C2><b>?</b></><b>{{ .UserName }}</b> <#26C6DA>?</><#45F1C2>?</>",
+            "template": " <#45F1C2><b>⚡</b></><b>{{ .UserName }}</b> <#26C6DA>❯</><#45F1C2>❯</>",
             "foreground": "#CD4277",
             "type": "text",
             "style": "plain"
