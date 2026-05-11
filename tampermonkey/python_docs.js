@@ -8,7 +8,7 @@ floatingDiv.style.position = 'fixed';
 floatingDiv.style.right = '0';
 floatingDiv.style.top = '50%';
 floatingDiv.style.transform = 'translateY(-50%)';
-floatingDiv.style.width = ;
+floatingDiv.style.width = '450px';
 floatingDiv.style.height = '700px';
 document.body.appendChild(floatingDiv);
 
