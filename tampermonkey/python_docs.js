@@ -10,6 +10,7 @@ floatingDiv.style.top = '50%';
 floatingDiv.style.transform = 'translateY(-50%)';
 floatingDiv.style.width = '450px';
 floatingDiv.style.height = '700px';
+floatingDiv.style.overflowY = 'auto';
 document.body.appendChild(floatingDiv);
 
 // Function to check window size and toggle the display of the floating div
