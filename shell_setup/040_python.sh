@@ -102,18 +102,18 @@ activate() {
 }
 
 main() {
-sym_link_python > /dev/null
+    sym_link_python > /dev/null
 
-if [[ ! -d "$HOME/.virtualenvs" ]]; then
-    mkdir "$HOME/.virtualenvs"
-fi
+    if [[ ! -d "$HOME/.virtualenvs" ]]; then
+        mkdir "$HOME/.virtualenvs"
+    fi
 
-if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
-    pushd "$HOME/.virtualenvs" || exit
-    python3 -m venv debugpy
-    ./debugpy/bin/python -m pip install debugpy
-    popd || exit
-fi
+    if [[ ! -d "$HOME/.virtualenvs/debugpy" ]]; then
+        pushd "$HOME/.virtualenvs" || exit
+        python3 -m venv debugpy
+        ./debugpy/bin/python -m pip install debugpy
+        popd || exit
+    fi
 }
 
-main
+# main
