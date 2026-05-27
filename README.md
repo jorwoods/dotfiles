@@ -54,23 +54,17 @@ sudo apt install xdotool
 ```
 
 ## Installing Python
-Install the Python dependencies as defined in
-
-[Python Developer's guide](https://devguide.python.org/getting-started/setup-building/#linux).
+Install [uv per their documentation](https://docs.astral.sh/uv/getting-started/installation/)
 
 ```bash
-sudo apt-get install build-essential gdb lcov pkg-config \
-      libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \
-      libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \
-      lzma lzma-dev tk-dev uuid-dev zlib1g-dev
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Once you have downloaded the python source, cd into the directory and build it.
+Install python LSPs
 
 ```bash
-./configure --enable-optimizations
-make -s -j$(nproc)
-make altinstall
+uv tool install basedpyright
+uv tool install ruff
 ```
 
 ## Installing nodejs
