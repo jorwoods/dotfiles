@@ -98,18 +98,18 @@ local servers = {
               },
         },
     },
-    basedpyright = {
-        python = {
-            inlayHints = inlayHints,
-            analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
-                typeCheckingMode = "basic",
-            },
-        },
-    },
-    ruff = {},
+    -- basedpyright = {
+    --     python = {
+    --         inlayHints = inlayHints,
+    --         analysis = {
+    --             autoSearchPaths = true,
+    --             useLibraryCodeForTypes = true,
+    --             diagnosticMode = "workspace",
+    --             typeCheckingMode = "basic",
+    --         },
+    --     },
+    -- },
+    -- ruff = {},
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -122,6 +122,32 @@ mason_lspconfig.setup {
 for server, config in pairs(servers) do
   vim.lsp.config[server]['settings'] = config
 end
+
+local py_root_markers = { { 'uv.lock', 'pyproject.toml', 'requirements.txt' }, '.git' }
+
+vim.lsp.config['basedpyright'] = {
+    cmd = { 'basedpyright-langserver', '--stdio'},
+    filetypes = { 'py' },
+    root_markers = py_root_markers,
+    settings = {
+        python = {
+            inlayHints = inlayHints,
+            analysis = { autoSearchPaths = true },
+            useLibraryCodeForTypes = true,
+            diagnosticMode = "workspace",
+            typeCheckingMode = "basic",
+        },
+    },
+}
+
+vim.lsp.config['ruff'] = {
+    cmd = { 'ruff', 'server' },
+    filetypes = { 'py' },
+    root_markers = py_root_markers
+}
+
+
+
 
 vim.api.nvim_create_autocmd('LspAttach',{
   group = vim.api.nvim_create_augroup('my.lsp', {}),
