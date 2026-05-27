@@ -3,5 +3,5 @@ return {
     { 'HakonHarnes/img-clip.nvim', },
 
     -- Screenshot code to clipboard
-    { "mistricky/codesnap.nvim", build = "make" },
+    -- { "mistricky/codesnap.nvim", build = "make" },
 }
