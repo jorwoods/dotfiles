@@ -83,6 +83,12 @@ Then, install the long term support version of NodeJS.
 nvm install --lts
 ```
 
+Reload the shell then run
+
+```bash
+npm install -g tree-sitter-cli
+```
+
 Installing node this way is crucial to have the LSPs for neovim work correctly.
 
 ## Configuring tmux
