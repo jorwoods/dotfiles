@@ -26,6 +26,7 @@ done
 
 export PATH="${PATH}:/snap/bin/"
 export NODE_EXTRA_CA_CERTS="${HOME}/windows_certs.pem"
+export UV_SYSTEM_CERTS=1
 
 
 source_bash () {
