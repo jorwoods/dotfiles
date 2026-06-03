@@ -127,7 +127,7 @@ local py_root_markers = { { 'uv.lock', 'pyproject.toml', 'requirements.txt' }, '
 
 vim.lsp.config['basedpyright'] = {
     cmd = { 'basedpyright-langserver', '--stdio'},
-    filetypes = { 'py' },
+    filetypes = { 'python' },
     root_markers = py_root_markers,
     settings = {
         python = {
@@ -142,7 +142,7 @@ vim.lsp.config['basedpyright'] = {
 
 vim.lsp.config['ruff'] = {
     cmd = { 'ruff', 'server' },
-    filetypes = { 'py' },
+    filetypes = { 'python' },
     root_markers = py_root_markers
 }
 
